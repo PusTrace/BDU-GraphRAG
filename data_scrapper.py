@@ -4,103 +4,16 @@ import requests
 import json
 import os
 from dotenv import load_dotenv
+import scripts
 
 
 class BDU_API:
-    host = "https://bdu.fstec.ru"
-
-    API_CONFIG = {
-        "threats": {
-            "endpoint": "/site-api/v1/Threats",
-            "page_include": [
-                "technics.techgroups",
-            ],
-            "item_include": [
-                "impact",
-                "objects.components",
-                "technics",
-            ],
-        },
-        "technics": {
-            "endpoint": "/site-api/v1/Technics",
-            "page_include": [],
-            "item_include": [
-                "potential",
-                "defenses",
-                "techgroups",
-                "threats",
-                "components",
-            ],
-        },
-        "techgroups": {
-            "endpoint": "/site-api/v1/Techgroups",
-            "page_include": [
-                "technics",
-                "technics.components",
-            ],
-            "item_include": [],
-        },
-        "objects": {
-            "endpoint": "/site-api/v1/Objects",
-            "page_include": [
-                "components.cmptype",
-            ],
-            "item_include": [
-                "components",
-            ],
-        },
-        "components": {
-            "endpoint": "/site-api/v1/Components",
-            "page_include": [
-                "cmptype",
-                "technics.components",
-                "technics.potential",
-                "technics.defenses.parent",
-                "technics.techgroups.technics",
-            ],
-            "item_include": [],
-        },
-        "cmptypes": {
-            "endpoint": "/site-api/v1/CmpTypes",
-            "page_include": [
-                "components.childs",
-            ],
-            "item_include": [],
-        },
-        "negatives": {
-            "endpoint": "/site-api/v1/Negatives",
-            "page_include": [],
-            "item_include": [
-                "threats",
-                "damagetype",
-            ],
-        },
-        "potentials": {
-            "endpoint": "/site-api/v1/Potentials",
-            "page_include": [
-                "intviews",
-            ],
-            "item_include": [],
-        },
-        "defgroups": {
-            "endpoint": "/site-api/v1/Defgroups",
-            "page_include": [
-                "defenses.childs",
-            ],
-            "item_include": [],
-        },
-        "defenses": {
-            "endpoint": "/site-api/v1/Defenses",
-            "page_include": [],
-            "item_include": [
-                "group",
-                "parent",
-                "technics.threats",
-            ],
-        },
-    }
-
     def __init__(self, bearer_token: str, phpsessid: str, csrf: str):
+
+        self.host = "https://bdu.fstec.ru"
+        cfg = scripts.load_config()
+        self.API_CONFIG = cfg["api"]
+        self.files = cfg["files"]
         self.session = requests.Session()
 
         self.session.headers.update(
@@ -146,7 +59,7 @@ class BDU_API:
 
         data = resp.json()
 
-        file_path = f"data/{target}_list.json"
+        file_path = self.files[target]
         with open(file_path, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
 
