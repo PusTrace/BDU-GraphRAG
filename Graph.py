@@ -2,11 +2,16 @@
 
 import json
 from collections import defaultdict, deque
+from typing import List
 import scripts as scripts
+import numpy as np
+import faiss
+
+from NodeVectors import calc_embedding
 
 
 class GraphSearch:
-    def __init__(self, nodes_file: str, edges_file: str):
+    def init(self, nodes_file: str, edges_file: str):
         self.nodes = self._load(nodes_file)
         self.edges = self._load(edges_file)
         self.graph = defaultdict(list)
@@ -142,7 +147,7 @@ class GraphSearch:
 
             lines.append(
                 f"{source_name} ({edge['source']}) "
-                f"--{edge_relation}--> "
+                f"{edge_relation} "
                 f"{target_name} ({edge['target']})"
             )
 
@@ -151,9 +156,47 @@ class GraphSearch:
             "text": "\n".join(lines),
         }
 
+    def vector_search(self, sentence: str, threshold: float = 0.7):
+        query_embedding = calc_embedding(sentence)
 
-def main():
-    graph = GraphSearch(
+        query_vector = np.array([query_embedding], dtype="float32")
+
+        index = faiss.read_index("data/nodes.index")
+
+        print(f"loaded {index.ntotal} embedding vectors")
+        # загружаем описание вершин
+        with open("data/node_embeddings.json", encoding="utf-8") as f:
+            nodes = json.load(f)
+
+        distances, indexes = index.search(query_vector, 5)
+
+        finded_nodes = []
+        for idx, distance in zip(indexes[0], distances[0]):
+            node = nodes[idx]
+            print(distance, node["id"], node["text"])
+            fin_node = {"score": distance, "node": node}
+            if distance < threshold:
+                finded_nodes.append(fin_node)
+        return finded_nodes
+
+    def lazy(self, text: str):
+        nodes = self.vector_search(text)
+        contexts = []
+
+        print("dumb edges slice: 5")
+        for item in nodes:
+            node = item["node"]
+            text = node["text"]
+            edges = self.bfs(node["id"], max_depth=1)[:5]
+            edge_nodes = self.get(edges)["text"]
+            context = f"{text} имеет связи:\n(\n" + edge_nodes + "\n)\n"
+            contexts.append(context)
+        return "\n".join(contexts)
+
+
+def test_search():
+    graph = GraphSearch()
+    graph.init(
         "data/nodes.json",
         "data/edges.json",
     )
@@ -166,7 +209,12 @@ def main():
                 break
 
             tokens = graph.input(text)
-            nodes = graph.search(tokens)
+            nodes = graph.search(tokens)[:5]
+            for item in nodes:
+                node = item["node"]
+                score = item["score"]
+                name = node["name"]
+                print(f"{score} - {name}")
             print(f"\nlen nodes: {len(nodes)}\n")
 
             all_edges = {}
@@ -185,5 +233,55 @@ def main():
         print("KeyboardInterrupt")
 
 
+def test_vector_search():
+    graph = GraphSearch()
+
+    graph.init(
+        "data/nodes.json",
+        "data/edges.json",
+    )
+    try:
+        while True:
+            text = input("> ")
+
+            if text.lower() in ("exit", "quit"):
+                break
+            nodes = graph.vector_search(text)
+            print(f"\nlen nodes: {len(nodes)}\n")
+
+            all_edges = {}
+
+            for item in nodes:
+                node = item["node"]
+                id = node["id"]
+                print(f"node: {id}")
+                edges = graph.bfs(node["id"], max_depth=1)
+                context = graph.get(edges)
+                # print(context["text"])
+                all_edges[id] = edges
+                print(f"len edges: {len(edges)}")
+            # print(f"\nedges: {all_edges}")
+
+    except KeyboardInterrupt:
+        print("KeyboardInterrupt")
+
+
 if __name__ == "__main__":
-    main()
+    print("TEST GraphSearch")
+    method = input("choose method:")
+    if method == "s":
+        test_search()
+    elif method == "vs":
+        test_vector_search()
+    elif method == "l":
+        text = input("write text for lazy method\n> ")
+        graph = GraphSearch()
+        graph.init(
+            "data/nodes.json",
+            "data/edges.json",
+        )
+        context = graph.lazy(text)
+        print(context)
+
+    else:
+        print("this method is not supported")

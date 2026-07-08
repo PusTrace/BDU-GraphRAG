@@ -1,7 +1,6 @@
 # cleaning, validation and normalization
 import json
 import scripts
-import os
 
 
 DEBUG = True
