@@ -2,18 +2,13 @@
 from urllib.parse import urlencode
 import requests
 import json
-import os
-from dotenv import load_dotenv
-import scripts
 
 
 class BDU_API:
-    def __init__(self, bearer_token: str, phpsessid: str, csrf: str):
-
+    def __init__(self, bearer_token: str, phpsessid: str, csrf: str, config):
         self.host = "https://bdu.fstec.ru"
-        cfg = scripts.load_config()
-        self.API_CONFIG = cfg["api"]
-        self.files = cfg["files"]
+        self.API_CONFIG = config["api"]
+        self.files = config["files"]["raw"]
         self.session = requests.Session()
 
         self.session.headers.update(
@@ -94,18 +89,3 @@ class BDU_API:
         resp.raise_for_status()
 
         return resp.json()
-
-
-def main():
-    print("data_scrapper")
-    load_dotenv()
-    api = BDU_API(
-        bearer_token=os.getenv("bearer_token"),
-        phpsessid=os.getenv("phpsessid"),
-        csrf=os.getenv("csrf"),
-    )
-    api.fetch_all_lists()
-
-
-if __name__ == "__main__":
-    main()

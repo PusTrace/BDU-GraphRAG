@@ -1,0 +1,278 @@
+# metrics
+import src.storage as load
+from src.Graph import Graph
+from src.LanguageModels import (
+    create_context,
+    slm,
+    slm_RAG,
+    create_graph_context,
+    llm_as_judge,
+)
+from dataclasses import dataclass
+import matplotlib.pyplot as plt
+
+from pathlib import Path
+import hashlib
+import json
+
+
+CACHE_DIR = Path("data/cache")
+CACHE_DIR.mkdir(exist_ok=True)
+
+
+def cache_path(text: str, stage: str) -> Path:
+    key = hashlib.sha256(f"{text}:{stage}".encode("utf-8")).hexdigest()
+    print(key)
+
+    return CACHE_DIR / f"{key}.json"
+
+
+def load_cache(text: str, stage: str):
+    path = cache_path(text, stage)
+
+    if not path.exists():
+        return None
+
+    with path.open(encoding="utf-8") as f:
+        return json.load(f)
+
+
+def save_cache(text: str, stage: str, data):
+    path = cache_path(text, stage)
+
+    with path.open("w", encoding="utf-8") as f:
+        json.dump(
+            data,
+            f,
+            ensure_ascii=False,
+            indent=2,
+        )
+
+
+@dataclass
+class ExperimentResult:
+    name: str
+
+    correctness: int
+    completeness: int
+    faithfulness: int
+    clarity: int
+    total: int
+    comment: str
+
+    prompt_tokens: int
+    completion_tokens: int
+    total_tokens: int
+
+    prompt_ms: float
+    predicted_ms: float
+    total_ms: float
+
+
+def print_table(results: list[ExperimentResult]):
+    baseline = results[0]
+
+    headers = [
+        "Метод",
+        "Correct",
+        "Complete",
+        "Faith",
+        "Clear",
+        "Total",
+        "Δ Total",
+        "Tokens",
+        "Δ Tokens",
+        "Time (ms)",
+        "Δ Time",
+    ]
+
+    rows = []
+
+    for r in results:
+        rows.append(
+            [
+                r.name,
+                r.correctness,
+                r.completeness,
+                r.faithfulness,
+                r.clarity,
+                r.total,
+                f"{r.total - baseline.total:+d}",
+                r.total_tokens,
+                f"{r.total_tokens - baseline.total_tokens:+d}",
+                round(r.total_ms, 1),
+                f"{r.total_ms - baseline.total_ms:+.1f}",
+            ]
+        )
+
+    fig, ax = plt.subplots(figsize=(13, 2 + len(rows) * 0.6))
+    ax.axis("off")
+
+    table = ax.table(
+        cellText=rows,
+        colLabels=headers,
+        cellLoc="center",
+        loc="center",
+    )
+
+    table.auto_set_font_size(False)
+    table.set_fontsize(10)
+    table.scale(1.2, 1.7)
+
+    plt.tight_layout()
+    plt.show()
+
+
+def print_comments(results: list[ExperimentResult]):
+    print("\n" + "=" * 80)
+    print("Комментарии LLM-судьи")
+    print("=" * 80)
+
+    for r in results:
+        print(f"\n[{r.name}]")
+        print("-" * 80)
+        print(r.comment)
+
+
+def build_result(llm_result, usages, timings):
+    names = [
+        "SLM",
+        "VectorRAG",
+        "GraphRAG",
+    ]
+
+    result = []
+
+    for name, judge, usage, timing in zip(
+        names,
+        llm_result,
+        usages,
+        timings,
+    ):
+        result.append(
+            ExperimentResult(
+                name=name,
+                correctness=judge["correctness"],
+                completeness=judge["completeness"],
+                faithfulness=judge["faithfulness"],
+                clarity=judge["clarity"],
+                total=judge["total"],
+                comment=judge["comment"],
+                prompt_tokens=usage["prompt_tokens"],
+                completion_tokens=usage["completion_tokens"],
+                total_tokens=usage["total_tokens"],
+                prompt_ms=round(timing["prompt_ms"], 2),
+                predicted_ms=round(timing["predicted_ms"], 2),
+                total_ms=round(
+                    timing["prompt_ms"] + timing["predicted_ms"],
+                    2,
+                ),
+            )
+        )
+
+    return result
+
+
+def main():
+    config = load.config()
+    files = config["files"]
+    graph = Graph(
+        files["processed"]["nodes"],
+        files["processed"]["edges"],
+        files["index"]["nodes"],
+        files["embeddings"]["nodes"],
+    )
+    contexts = []
+    answers = []
+    questions = []
+    usages = []
+    timings = []
+    text = "расскажи про sql-инъекции"
+
+    # slm
+    cached = load_cache(text, "slm")
+    if cached is None:
+        resp = slm(text).json()
+        save_cache(text, "slm", resp)
+    else:
+        resp = cached
+    message = resp["choices"][0]["message"]["content"]
+    usages.append(resp["usage"])
+    timings.append(resp["timings"])
+    contexts.append("")
+    answers.append(message)
+    questions.append(text)
+
+    # slm with vector search
+
+    cached = load_cache(text, "vector")
+
+    if cached is None:
+        nodes = graph.search_nodes(text, top_k=5)[:3]
+        context = create_context(nodes)
+        resp = slm_RAG(text, context).json()
+        save_cache(
+            text,
+            "vector",
+            {
+                "context": context,
+                "response": resp,
+            },
+        )
+    else:
+        context = cached["context"]
+        resp = cached["response"]
+
+    print(f"context: {context}")
+    message = resp["choices"][0]["message"]["content"]
+    usages.append(resp["usage"])
+    timings.append(resp["timings"])
+    contexts.append(context)
+    answers.append(message)
+    questions.append(text)
+
+    # slm with graph search
+    cached = load_cache(text, "graph")
+
+    if cached is None:
+        nodes = graph.search_nodes(text, top_k=5)[:3]
+        first_context = create_context(nodes)
+        nodes = graph.expand_nodes(nodes=nodes, max_depth=1, max_neighbors=5)
+        second_context = create_graph_context(nodes)
+        context = first_context + "\n\n" + second_context
+
+        resp = slm_RAG(text, context).json()
+        save_cache(
+            text,
+            "graph",
+            {
+                "context": context,
+                "response": resp,
+            },
+        )
+    else:
+        context = cached["context"]
+        resp = cached["response"]
+
+    print(f"context: {context}")
+    message = resp["choices"][0]["message"]["content"]
+    usages.append(resp["usage"])
+    timings.append(resp["timings"])
+    contexts.append(context)
+    answers.append(message)
+    questions.append(text)
+
+    cached = load_cache(text, "judge")
+    if cached is None:
+        result = llm_as_judge(questions, answers, contexts)
+        save_cache(text, "judge", result)
+    else:
+        result = cached
+    table = build_result(result, usages, timings)
+
+    print_comments(table)
+    print_table(table)
+
+
+if __name__ == "__main__":
+    main()

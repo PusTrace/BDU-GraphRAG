@@ -1,20 +1,13 @@
 # cleaning, validation and normalization
 import json
-import scripts
 
-
-DEBUG = True
-
-
-def debug(*args):
-    if DEBUG:
-        print("[DEBUG]", *args)
+import src.storage as load
 
 
 class BDUParser:
     def __init__(self, config):
         self.cfg = config["parser"]
-        self.files = config["files"]
+        self.files = config["files"]["raw"]
 
         self.data = {}
 
@@ -30,12 +23,12 @@ class BDUParser:
         print("[INFO] Loading datasets...")
 
         for name, file_path in self.files.items():
-            debug(f"Loading {name}: {file_path}")
+            print(f"Loading {name}: {file_path}")
 
             with open(file_path, encoding="utf8") as f:
                 self.data[name] = json.load(f)
 
-            debug(
+            print(
                 f"{name}: "
                 f"data={len(self.data[name].get('data', []))}, "
                 f"included={len(self.data[name].get('included', []))}"
@@ -85,10 +78,10 @@ class BDUParser:
                     self.id_map[key] = identifier
                     total += 1
 
-            debug(f"{dataset_name}: +{len(self.id_map) - before} ids")
+            print(f"{dataset_name}: +{len(self.id_map) - before} ids")
 
         print(f"[INFO] Indexed {len(self.id_map)} unique ids")
-        debug(f"processed={total}, skipped={skipped}")
+        print(f"processed={total}, skipped={skipped}")
 
         return self.id_map
 
@@ -129,10 +122,10 @@ class BDUParser:
                         }
                     )
 
-            debug(f"{dataset_name}: +{len(self.nodes) - before} nodes")
+            print(f"{dataset_name}: +{len(self.nodes) - before} nodes")
 
         print(f"[INFO] Collected {len(self.nodes)} nodes")
-        debug(f"duplicates={duplicates}, skipped={skipped}")
+        print(f"duplicates={duplicates}, skipped={skipped}")
 
         return self.nodes
 
@@ -151,13 +144,13 @@ class BDUParser:
             parser_cfg = self.cfg.get(dataset_name)
 
             if parser_cfg is None:
-                debug(f"{dataset_name}: no parser config")
+                print(f"{dataset_name}: no parser config")
                 continue
 
             dataset_edges = 0
 
             for rule in parser_cfg.get("relations", []):
-                debug(f"{dataset_name}: {rule['from']} -> {rule['edge']}")
+                print(f"{dataset_name}: {rule['from']} -> {rule['edge']}")
 
                 before = len(self.edges)
 
@@ -281,16 +274,16 @@ class BDUParser:
                 added = len(self.edges) - before
                 dataset_edges += added
 
-                debug(f"    added {added} edges")
+                print(f"    added {added} edges")
 
             print(f"[INFO] {dataset_name}: {dataset_edges} edges")
 
         print("[INFO] Graph complete")
         print(f"[INFO] Total edges: {len(self.edges)}")
 
-        debug(f"duplicate edges: {duplicates}")
-        debug(f"missing source ids: {missing_sources}")
-        debug(f"missing target ids: {missing_targets}")
+        print(f"duplicate edges: {duplicates}")
+        print(f"missing source ids: {missing_sources}")
+        print(f"missing target ids: {missing_targets}")
 
         return self.edges
 
@@ -416,33 +409,3 @@ class BDUParser:
                     target = self._id(rule["to"], rel.get("id"))
 
                     self._edge(source, target, rule["edge"])
-
-
-def main():
-
-    config = scripts.load_config()
-    parser = BDUParser(config=config)
-    files = config["output"]
-
-    nodes, edges = parser.run()
-    a = input("d for print")
-    if a == "d":
-        print(json.dumps(nodes, ensure_ascii=False, indent=2))
-        input("enter for cont")
-        print(json.dumps(edges, ensure_ascii=False, indent=2))
-
-    file_path = files["nodes"]
-
-    with open(file_path, "w", encoding="utf-8") as f:
-        json.dump(nodes, f, ensure_ascii=False, indent=2)
-    print(f"Saved {file_path}")
-
-    file_path = files["edges"]
-    with open(file_path, "w", encoding="utf-8") as f:
-        json.dump(edges, f, ensure_ascii=False, indent=2)
-    print(f"Saved {file_path}")
-    print("complited")
-
-
-if __name__ == "__main__":
-    main()
