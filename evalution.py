@@ -7,6 +7,7 @@ from src.LanguageModels import (
     slm_RAG,
     create_graph_context,
     llm_as_judge,
+    slm_GraphRAG,
 )
 from dataclasses import dataclass
 import matplotlib.pyplot as plt
@@ -70,8 +71,6 @@ class ExperimentResult:
 
 
 def print_table(results: list[ExperimentResult]):
-    baseline = results[0]
-
     headers = [
         "Метод",
         "Correct",
@@ -79,11 +78,10 @@ def print_table(results: list[ExperimentResult]):
         "Faith",
         "Clear",
         "Total",
-        "Δ Total",
-        "Tokens",
-        "Δ Tokens",
+        "inp tok",
+        "out tok",
+        "Total tok",
         "Time (ms)",
-        "Δ Time",
     ]
 
     rows = []
@@ -97,11 +95,10 @@ def print_table(results: list[ExperimentResult]):
                 r.faithfulness,
                 r.clarity,
                 r.total,
-                f"{r.total - baseline.total:+d}",
+                r.prompt_tokens,
+                r.completion_tokens,
                 r.total_tokens,
-                f"{r.total_tokens - baseline.total_tokens:+d}",
                 round(r.total_ms, 1),
-                f"{r.total_ms - baseline.total_ms:+.1f}",
             ]
         )
 
@@ -236,12 +233,10 @@ def main():
 
     if cached is None:
         nodes = graph.search_nodes(text, top_k=5)[:3]
-        first_context = create_context(nodes)
-        nodes = graph.expand_nodes(nodes=nodes, max_depth=1, max_neighbors=5)
-        second_context = create_graph_context(nodes)
-        context = first_context + "\n\n" + second_context
+        expanded_nodes = graph.expand_nodes(nodes=nodes, max_depth=1, max_neighbors=5)
+        context = create_graph_context(nodes, expanded_nodes)
 
-        resp = slm_RAG(text, context).json()
+        resp = slm_GraphRAG(text, context).json()
         save_cache(
             text,
             "graph",

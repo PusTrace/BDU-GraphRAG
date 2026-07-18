@@ -1,411 +1,562 @@
 # cleaning, validation and normalization
+from dataclasses import asdict
 import json
+import csv
+import re
+from pathlib import Path
 
-import src.storage as load
+import src.models as obj
 
 
 class BDUParser:
     def __init__(self, config):
         self.cfg = config["parser"]
-        self.files = config["files"]["raw"]
 
-        self.data = {}
+        self.files = config["files"]["nodes"]
+        self.output = config["files"]["processed"]
 
-        self.id_map = {}
-        self.nodes = []
-        self.edges = []
+        self.datasets = {}
+
+        self.nodes: list[obj.Node] = []
+        self.edges: list[obj.Edge] = []
+
+        self.node_index: dict[tuple[str, str], obj.Node] = {}
+        self.edge_index: set[tuple[int, int, str]] = set()
+
+        # поиск по имени (для отладки и fallback)
+        self.name_index: dict[tuple[str, str], obj.Node] = {}
+
+        self.next_node_id = 0
 
     # =====================================================
     # PUBLIC API
     # =====================================================
 
-    def load_all_files(self):
-        print("[INFO] Loading datasets...")
+    def run(self):
+        self.load_files()
 
-        for name, file_path in self.files.items():
-            print(f"Loading {name}: {file_path}")
+        print("[INFO] Collecting nodes...")
+        self.collect_nodes()
 
-            with open(file_path, encoding="utf8") as f:
-                self.data[name] = json.load(f)
+        print("[INFO] Collecting edges...")
+        self.collect_edges()
 
-            print(
-                f"{name}: "
-                f"data={len(self.data[name].get('data', []))}, "
-                f"included={len(self.data[name].get('included', []))}"
+        print(f"[INFO] Nodes: {len(self.nodes)}")
+        print(f"[INFO] Edges: {len(self.edges)}")
+
+        return self.nodes, self.edges
+
+    def save(self):
+        with open(
+            self.output["nodes"],
+            "w",
+            encoding="utf-8",
+        ) as f:
+            json.dump(
+                [asdict(node) for node in self.nodes],
+                f,
+                ensure_ascii=False,
+                indent=2,
             )
 
-        print(f"[INFO] Loaded {len(self.data)} datasets")
+        with open(
+            self.output["edges"],
+            "w",
+            encoding="utf-8",
+        ) as f:
+            json.dump(
+                [asdict(edge) for edge in self.edges],
+                f,
+                ensure_ascii=False,
+                indent=2,
+            )
 
-    def run(self):
-        self.load_all_files()
-        self.generate_index()
-        self.collect_nodes()
-        self.generate_network()
-        print(f"[INFO] cleaned nodes: {len(self.nodes)}")
-        print(f"[INFO] cleaned edges: {len(self.edges)}")
-        return self.nodes, self.edges
+    def load_files(self):
+        for name, path in self.files.items():
+            path = Path(path)
 
-    def generate_index(self):
-        print("[INFO] Building global id index...")
+            if path.suffix == ".csv":
+                self.datasets[name] = self._load_csv(path)
 
-        self.id_map = {}
+            elif path.suffix == ".json":
+                self.datasets[name] = self._load_json(path)
 
-        total = 0
-        skipped = 0
-
-        for dataset_name, dataset in self.data.items():
-            before = len(self.id_map)
-
-            for section in ("data", "included"):
-                for item in dataset.get(section, []):
-                    attrs = item.get("attributes", {})
-
-                    identifier = attrs.get("identifier")
-
-                    if not identifier:
-                        skipped += 1
-                        continue
-
-                    try:
-                        key = (
-                            item["type"],
-                            int(item["id"]),
-                        )
-                    except Exception:
-                        skipped += 1
-                        continue
-
-                    self.id_map[key] = identifier
-                    total += 1
-
-            print(f"{dataset_name}: +{len(self.id_map) - before} ids")
-
-        print(f"[INFO] Indexed {len(self.id_map)} unique ids")
-        print(f"processed={total}, skipped={skipped}")
-
-        return self.id_map
+            else:
+                raise ValueError(f"Unknown file type: {path}")
 
     def collect_nodes(self):
-        print("[INFO] Collecting nodes...")
+        for node_type, cfg in self.cfg["nodes"].items():
+            source = cfg["source"]
 
-        self.nodes = []
+            dataset = self.datasets[source]
+            if cfg["source_type"] == "csv":
+                self._collect_csv_nodes(
+                    node_type=node_type,
+                    dataset=dataset,
+                    cfg=cfg,
+                )
 
-        seen = set()
+            else:
+                self._collect_json_nodes(
+                    node_type=node_type,
+                    dataset=dataset,
+                    cfg=cfg,
+                )
 
-        duplicates = 0
-        skipped = 0
+    def collect_edges(self):
+        for rule in self.cfg["edges"]:
+            print(f"[EDGE] {rule['from']} -> {rule['to']} : {rule['edge']}")
 
-        for dataset_name, dataset in self.data.items():
-            before = len(self.nodes)
+            dataset = self.datasets[rule["source"]]
 
-            for section in ("data", "included"):
-                for item in dataset.get(section, []):
-                    attrs = item.get("attributes", {})
+            self._collect_csv_edges(
+                dataset=dataset,
+                cfg=rule,
+            )
 
-                    identifier = attrs.get("identifier")
+    # =====================================================
+    # CSV
+    # =====================================================
 
-                    if not identifier:
-                        skipped += 1
-                        continue
+    def _collect_csv_nodes(
+        self,
+        node_type: str,
+        dataset: list[dict],
+        cfg: dict,
+    ):
+        """
+        Создает вершины из CSV.
 
-                    if identifier in seen:
-                        duplicates += 1
-                        continue
+        cfg:
+        {
+            "source": "file_path",
+            "internal_id": "",
+            "name": "",
+            "description": []
+        }
+        """
+        id_column = cfg.get("internal_id", "")
+        name_column = cfg["name"]
+        description_columns = cfg.get("description", [])
 
-                    seen.add(identifier)
+        added = 0
 
-                    self.nodes.append(
-                        {
-                            "id": identifier,
-                            "type": item["type"],
-                            "name": attrs.get("name"),
-                        }
-                    )
+        for row in dataset:
+            raw_name = row.get(name_column, "").strip()
 
-            print(f"{dataset_name}: +{len(self.nodes) - before} nodes")
-
-        print(f"[INFO] Collected {len(self.nodes)} nodes")
-        print(f"duplicates={duplicates}, skipped={skipped}")
-
-        return self.nodes
-
-    def generate_network(self):
-        print("[INFO] Building graph...")
-
-        self.edges = []
-
-        seen = set()
-
-        duplicates = 0
-        missing_targets = 0
-        missing_sources = 0
-
-        for dataset_name, dataset in self.data.items():
-            parser_cfg = self.cfg.get(dataset_name)
-
-            if parser_cfg is None:
-                print(f"{dataset_name}: no parser config")
+            if not raw_name:
                 continue
 
-            dataset_edges = 0
+            # Есть отдельная колонка ID
+            if id_column:
+                node_id = row.get(id_column, "").strip()
+                name = raw_name
 
-            for rule in parser_cfg.get("relations", []):
-                print(f"{dataset_name}: {rule['from']} -> {rule['edge']}")
+            # ID находится внутри имени
+            else:
+                parts = raw_name.split(maxsplit=1)
 
-                before = len(self.edges)
-
-                for section in ("data", "included"):
-                    for item in dataset.get(section, []):
-                        if item.get("type") != rule["from"]:
-                            continue
-
-                        source = self._id(
-                            item["type"],
-                            item.get("id"),
-                        )
-
-                        if not source:
-                            missing_sources += 1
-                            continue
-
-                        # parent
-                        if "parent" in rule:
-                            parent_id = item.get(
-                                "attributes",
-                                {},
-                            ).get(rule["parent"])
-
-                            target = self._id(
-                                item["type"],
-                                parent_id,
-                            )
-
-                            if not target:
-                                missing_targets += 1
-                                continue
-
-                            edge = (
-                                target,
-                                rule["edge"],
-                                source,
-                            )
-
-                            if edge in seen:
-                                duplicates += 1
-                                continue
-
-                            seen.add(edge)
-
-                            self.edges.append(
-                                {
-                                    "source": target,
-                                    "target": source,
-                                    "relation": rule["edge"],
-                                }
-                            )
-
-                            continue
-                        if "fk" in rule:
-                            fk = item.get("attributes", {}).get(rule["fk"])
-
-                            target = self._id(
-                                rule["to"],
-                                fk,
-                            )
-
-                            if not target:
-                                continue
-
-                            edge = (
-                                source,
-                                rule["edge"],
-                                target,
-                            )
-
-                            if edge in seen:
-                                continue
-
-                            seen.add(edge)
-
-                            self.edges.append(
-                                {
-                                    "source": source,
-                                    "target": target,
-                                    "relation": rule["edge"],
-                                }
-                            )
-
-                            continue
-
-                        # normal relation
-                        for rel in self._relation(
-                            item,
-                            rule["relation"],
-                        ):
-                            target = self._id(
-                                rule["to"],
-                                rel.get("id"),
-                            )
-
-                            if not target:
-                                missing_targets += 1
-                                continue
-
-                            edge = (
-                                source,
-                                rule["edge"],
-                                target,
-                            )
-
-                            if edge in seen:
-                                duplicates += 1
-                                continue
-
-                            seen.add(edge)
-
-                            self.edges.append(
-                                {
-                                    "source": source,
-                                    "target": target,
-                                    "relation": rule["edge"],
-                                }
-                            )
-
-                added = len(self.edges) - before
-                dataset_edges += added
-
-                print(f"    added {added} edges")
-
-            print(f"[INFO] {dataset_name}: {dataset_edges} edges")
-
-        print("[INFO] Graph complete")
-        print(f"[INFO] Total edges: {len(self.edges)}")
-
-        print(f"duplicate edges: {duplicates}")
-        print(f"missing source ids: {missing_sources}")
-        print(f"missing target ids: {missing_targets}")
-
-        return self.edges
-
-    def parse(self):
-        path = self.cfg.get("file")
-        if path is None:
-            raise ValueError("config file path is none")
-
-        data = self._load(path)
-
-        # -------- nodes --------
-        roots = self.cfg["roots"]
-        for root in roots:
-            items = data.get(root["source"], [])
-            print(f"roots: {len(items)}")
-
-            for item in items:
-                if item.get("type") != root["type"]:
+                if len(parts) < 2:
+                    print(
+                        "[ERROR] Cannot extract id\n",
+                        f"type: {node_type}\n",
+                        f"value: {raw_name}",
+                    )
                     continue
 
-                self._add_node(item)
+                node_id = parts[0]
+                name = parts[1]
 
-        # -------- relations --------
-        relations = self.cfg["relations"]
-        for rule in relations:
-            self._build_relation(data, rule)
+            if not node_id:
+                print("[ERROR] Empty node id", node_type, raw_name)
+                continue
+            description = []
 
-        return self.nodes, self.edges
+            for column in description_columns:
+                value = row.get(column, "").strip()
+
+                if value:
+                    description.append(value)
+
+            _, created = self._add_node(
+                node_type=node_type,
+                node_id=node_id,
+                name=name,
+                description="\n".join(description),
+            )
+
+            if created:
+                added += 1
+
+        print(f"{node_type}: +{added} nodes")
 
     # =====================================================
-    # PRIVATE
+    # JSON
     # =====================================================
 
-    def _load(self, path: str):
-        with open(path, encoding="utf-8") as f:
+    def _collect_json_nodes(
+        self,
+        node_type: str,
+        dataset: dict,
+        cfg: dict,
+    ):
+        """
+        Создает вершины из JSON API.
+        """
+
+        section = cfg.get("section", "data")
+
+        id_field = cfg.get("id", "id")
+        name_field = cfg.get("name", "name")
+        description_field = cfg.get("description")
+
+        items = dataset.get(section, [])
+
+        added = 0
+        skipped = 0
+
+        for item in items:
+            attributes = item.get("attributes", {})
+
+            external_id = item.get(id_field)
+
+            if external_id is None:
+                print(f"[ERROR] {node_type}: node without id:")
+                print(item)
+                skipped += 1
+                continue
+
+            name = attributes.get(name_field)
+
+            if not name:
+                print(f"[ERROR] {node_type}: node without name:")
+                print(item)
+                skipped += 1
+                continue
+
+            description = ""
+
+            if description_field:
+                description = attributes.get(description_field) or ""
+
+            node_id = f"{external_id}"
+
+            self._add_node(
+                node_type=node_type,
+                node_id=node_id,
+                name=name,
+                description=description,
+            )
+
+            added += 1
+
+        print(f"{node_type}: +{added} nodes, skipped={skipped}")
+
+    def _add_node(
+        self,
+        node_type: str,
+        node_id: str,
+        name: str,
+        description: str = "",
+    ):
+        key = (node_type, node_id)
+
+        node = self.node_index.get(key)
+
+        if node is not None:
+            return node, False
+
+        self.next_node_id += 1
+
+        node = obj.Node(
+            id=self.next_node_id,
+            type=node_type,
+            internal_id=node_id,
+            name=name,
+            description=description,
+        )
+
+        self.node_index[key] = node
+        self.name_index[(node_type, name.strip())] = node
+
+        self.nodes.append(node)
+
+        return node, True
+
+    def _load_csv(
+        self,
+        path: Path,
+    ) -> list[dict]:
+
+        with path.open(encoding="utf-8-sig") as f:
+            return list(csv.DictReader(f))
+
+    def _load_json(
+        self,
+        path: Path,
+    ) -> dict:
+
+        with path.open(encoding="utf-8") as f:
             return json.load(f)
 
-    def _add_node(self, item):
-        attrs = item.get("attributes", {})
+    def _collect_csv_edges(
+        self,
+        dataset: list[dict],
+        cfg: dict,
+    ):
+        extract = cfg["extract"]
 
-        internal_id = item.get("id")
-        node_type = item.get("type")
+        from_type = cfg["from"]
+        to_type = cfg["to"]
 
-        identifier = attrs.get("identifier")
-        name = attrs.get("name")
+        relation = cfg["edge"]
 
-        if not identifier:
-            return
+        from_column = extract["from"]
+        to_column = extract["to"]
 
-        try:
-            key = (node_type, int(internal_id))
-        except Exception:
-            return
+        from_type_parser = extract["from_type"]
+        to_type_parser = extract["to_type"]
 
-        self.id_map[key] = identifier
+        added = 0
+        errors = 0
 
-        self.nodes.append(
-            {
-                "id": identifier,
-                "type": node_type,
-                "name": name,
-            }
-        )
+        for row in dataset:
+            source_keys = self._parse_field(
+                row,
+                from_column,
+                from_type_parser,
+            )
 
-    def _relation(self, item, relation):
-        data = item.get("relationships", {}).get(relation, {}).get("data")
+            target_keys = self._parse_field(
+                row,
+                to_column,
+                to_type_parser,
+            )
 
-        if not data:
+            for source_key in source_keys:
+                source = self.node_index.get(
+                    (
+                        from_type,
+                        source_key,
+                    )
+                )
+
+                if source is None:
+                    print("[ERROR] Source not found")
+                    print("type:", from_type)
+                    print("id:", repr(source_key))
+                    errors += 1
+                    continue
+
+                for target_key in target_keys:
+                    target = self.node_index.get(
+                        (
+                            to_type,
+                            target_key,
+                        )
+                    )
+
+                    if target is None:
+                        target_by_name = self.name_index.get(
+                            (
+                                to_type,
+                                target_key,
+                            )
+                        )
+
+                        if target_by_name:
+                            target = target_by_name
+
+                    if target is None:
+                        print("\n[ERROR] Target not found")
+                        print("target type:", to_type)
+                        print("searched id:", repr(target_key))
+                        print("source:")
+                        print(
+                            " ",
+                            source.type,
+                            source.internal_id,
+                            source.name,
+                        )
+
+                        errors += 1
+                        continue
+
+                    edge_key = (
+                        source.id,
+                        target.id,
+                        relation,
+                    )
+
+                    if edge_key in self.edge_index:
+                        continue
+
+                    self.edge_index.add(edge_key)
+
+                    self.edges.append(
+                        obj.Edge(
+                            source=source.id,
+                            target=target.id,
+                            relation=relation,
+                        )
+                    )
+
+                    added += 1
+
+        print(f"    edges +{added}, errors={errors}")
+
+    def _build_key(self, row, columns):
+
+        if isinstance(columns, list):
+            return row.get(columns[0], "").strip()
+
+        value = row.get(columns, "").strip()
+
+        if not value:
+            return ""
+
+        return value.split(maxsplit=1)[0]
+
+    def _split_values(self, row, columns):
+
+        result = []
+
+        # -----------------------------------------
+        # В конфиге пришёл массив:
+        #
+        # [
+        #   "Идентификатор",
+        #   "Наименование"
+        # ]
+        #
+        # значит ID уже отдельно
+        # -----------------------------------------
+
+        if isinstance(columns, list):
+            value = row.get(columns[0], "").strip()
+
+            if value:
+                result.append(value)
+
+            return result
+
+        # -----------------------------------------
+        # Обычная колонка:
+        #
+        # "УБИ.1 Название"
+        #
+        # надо достать ID
+        # -----------------------------------------
+
+        value = row.get(columns, "")
+
+        if not value:
             return []
 
-        if isinstance(data, dict):
-            return [data]
+        for item in value.splitlines():
+            item = item.strip()
 
-        if isinstance(data, list):
-            return data
+            if not item:
+                continue
 
-        return []
+            node_id = item.split(maxsplit=1)[0]
 
-    def _id(self, node_type, internal_id):
-        if internal_id is None:
-            return None
+            if node_id in (
+                "Данные",
+                "уточняются",
+                "Данные_уточняются",
+            ):
+                continue
 
-        try:
-            return self.id_map.get((node_type, int(internal_id)))
-        except Exception:
-            return None
+            result.append(node_id)
 
-    def _edge(self, source, target, relation):
-        if not source or not target:
-            return
+        return result
 
-        self.edges.append(
-            {
-                "source": source,
-                "target": target,
-                "relation": relation,
-            }
-        )
+    def _extract_id(self, value: str, split: bool):
 
-    def _build_relation(self, data, rule):
+        value = value.strip()
 
-        for section in ("data", "included"):
-            for item in data.get(section, []):
-                if item.get("type") != rule["from"]:
-                    continue
+        if not value:
+            return ""
 
-                source = self._id(item["type"], item.get("id"))
+        if not split:
+            return value
 
-                if not source:
-                    continue
+        return value.split(maxsplit=1)[0]
 
-                # -------- parent_id relations --------
-                if "parent" in rule:
-                    parent_id = item.get("attributes", {}).get(rule["parent"])
+    def _parse_field(
+        self,
+        row: dict,
+        column,
+        field_type: str,
+    ) -> list[str]:
 
-                    parent = self._id(item["type"], parent_id)
+        value = row.get(column, "")
 
-                    self._edge(parent, source, rule["edge"])
-                    continue
+        if not value:
+            return []
 
-                # -------- normal relationships --------
-                for rel in self._relation(item, rule.get("relation")):
-                    target = self._id(rule["to"], rel.get("id"))
+        value = value.strip()
 
-                    self._edge(source, target, rule["edge"])
+        # ------------------------------
+        # clear_str
+        #
+        # К.1.1.1
+        # ------------------------------
+
+        if field_type == "clear_str":
+            return [value]
+
+        # ------------------------------
+        # mixed_str
+        #
+        # К.1 Название
+        # ------------------------------
+        if field_type == "mixed_str":
+            node_id = value.split(maxsplit=1)[0]
+
+            if node_id.lower() in (
+                "данные",
+                "уточняются",
+            ):
+                return []
+
+            return [node_id]
+
+        # ------------------------------
+        # mixed_arr
+        #
+        # К.1 Название;
+        # К.2 Название;
+        #
+        # ------------------------------
+
+        if field_type == "mixed_arr":
+            node_id = value.split(maxsplit=1)[0]
+
+            if node_id.lower() in (
+                "данные",
+                "уточняются",
+            ):
+                return []
+            result = []
+
+            matches = re.findall(
+                r"\b[А-ЯA-ZЁ]{1,}\.\d+(?:\.\d+)*",
+                value,
+            )
+
+            if not matches:
+                print("\n========== NO MATCH ==========")
+                print("column:", column)
+                print("type:", field_type)
+                print("value:")
+                print(value[:500])
+                print("==============================\n")
+
+            for node_id in matches:
+                result.append(node_id)
+
+            return list(dict.fromkeys(result))
+
+        raise ValueError(f"Unknown field type: {field_type}")

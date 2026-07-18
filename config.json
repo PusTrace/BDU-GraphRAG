@@ -1,0 +1,375 @@
+{
+  "api": {
+    "threats": {
+      "endpoint": "/site-api/v1/Threats",
+      "page_include": [
+        "technics.techgroups"
+      ],
+      "item_include": [
+        "impact",
+        "objects.components",
+        "technics"
+      ]
+    },
+    "technics": {
+      "endpoint": "/site-api/v1/Technics",
+      "page_include": [],
+      "item_include": [
+        "potential",
+        "defenses",
+        "techgroups",
+        "threats",
+        "components"
+      ]
+    },
+    "techgroups": {
+      "endpoint": "/site-api/v1/Techgroups",
+      "page_include": [
+        "technics",
+        "technics.components"
+      ],
+      "item_include": []
+    },
+    "objects": {
+      "endpoint": "/site-api/v1/Objects",
+      "page_include": [
+        "components.cmptype"
+      ],
+      "item_include": [
+        "components"
+      ]
+    },
+    "components": {
+      "endpoint": "/site-api/v1/Components",
+      "page_include": [
+        "cmptype",
+        "technics.components",
+        "technics.potential",
+        "technics.defenses.parent",
+        "technics.techgroups.technics"
+      ],
+      "item_include": []
+    },
+    "cmptypes": {
+      "endpoint": "/site-api/v1/CmpTypes",
+      "page_include": [
+        "components.childs"
+      ],
+      "item_include": []
+    },
+    "negatives": {
+      "endpoint": "/site-api/v1/Negatives",
+      "page_include": [],
+      "item_include": [
+        "threats",
+        "damagetype"
+      ]
+    },
+    "potentials": {
+      "endpoint": "/site-api/v1/Potentials",
+      "page_include": [
+        "intviews"
+      ],
+      "item_include": []
+    },
+    "defgroups": {
+      "endpoint": "/site-api/v1/Defgroups",
+      "page_include": [
+        "defenses.childs"
+      ],
+      "item_include": []
+    },
+    "defenses": {
+      "endpoint": "/site-api/v1/Defenses",
+      "page_include": [],
+      "item_include": [
+        "group",
+        "parent",
+        "technics.threats"
+      ]
+    }
+  },
+  "parser": {
+    "nodes": {
+      "cmptype": {
+        "source": "CmpNodes",
+        "source_type": "csv",
+        "internal_id": "",
+        "name": "Тип компонента",
+        "description": []
+      },
+      "cmpgroup": {
+        "source": "CmpNodes",
+        "source_type": "csv",
+        "internal_id": "",
+        "name": "Группа компонента",
+        "description": []
+      },
+      "cmp": {
+        "source": "CmpNodes",
+        "source_type": "csv",
+        "internal_id": "Идентификатор",
+        "name": "Наименование",
+        "description": []
+      },
+      "deftype": {
+        "source": "DefNodes",
+        "source_type": "csv",
+        "internal_id": "",
+        "name": "Группа мер",
+        "description": []
+      },
+      "defgroup": {
+        "source": "DefNodes",
+        "source_type": "csv",
+        "internal_id": "",
+        "name": "Подгруппа",
+        "description": []
+      },
+      "def": {
+        "source": "DefNodes",
+        "source_type": "csv",
+        "internal_id": "Идентификатор",
+        "name": "Наименование",
+        "description": []
+      },
+      "techgroup": {
+        "source": "TechnicNodes",
+        "source_type": "csv",
+        "internal_id": "",
+        "name": "Группа способов",
+        "description": []
+      },
+      "technic": {
+        "source": "TechnicNodes",
+        "source_type": "csv",
+        "internal_id": "Идентификатор",
+        "name": "Наименование",
+        "description": []
+      },
+      "potential": {
+        "source": "TechnicNodes",
+        "source_type": "csv",
+        "internal_id": "",
+        "name": "Уровень возможностей нарушителя",
+        "description": []
+      },
+      "object": {
+        "source": "ObjectNodes",
+        "source_type": "csv",
+        "internal_id": "Идентификатор",
+        "name": "Наименование",
+        "description": [
+          "Описание"
+        ]
+      },
+      "threat": {
+        "source": "ThreatNodes",
+        "source_type": "csv",
+        "internal_id": "Идентификатор",
+        "name": "Наименование",
+        "description": [
+          "Описание"
+        ]
+      },
+      "negative": {
+        "source": "NegativeNodes",
+        "source_type": "csv",
+        "internal_id": "Идентификатор",
+        "name": "Наименование",
+        "description": [
+          "Описание",
+          "Ущерб"
+        ]
+      },
+      "intview": {
+        "source": "IntviewNodes",
+        "source_type": "json",
+        "section": "included",
+        "id": "id",
+        "name": "name",
+        "description": "description"
+      }
+    },
+    "edges": [
+      {
+        "source": "CmpNodes",
+        "from": "cmptype",
+        "to": "cmpgroup",
+        "edge": "содержит группу",
+        "extract": {
+          "type": "column",
+          "from": "Тип компонента",
+          "from_type": "mixed_str",
+          "to": "Группа компонента",
+          "to_type": "mixed_str"
+        }
+      },
+      {
+        "source": "CmpNodes",
+        "from": "cmpgroup",
+        "to": "cmp",
+        "edge": "содержит компонент",
+        "extract": {
+          "type": "column",
+          "from": "Группа компонента",
+          "to": "Идентификатор",
+          "from_type": "mixed_str",
+          "to_type": "clear_str"
+        }
+      },
+      {
+        "source": "CmpNodes",
+        "from": "cmp",
+        "to": "object",
+        "edge": "содержит объект воздействия",
+        "extract": {
+          "type": "column",
+          "from": "Идентификатор",
+          "to": "Объекты воздействия",
+          "from_type": "clear_str",
+          "to_type": "mixed_arr"
+        }
+      },
+      {
+        "source": "DefNodes",
+        "from": "deftype",
+        "to": "defgroup",
+        "edge": "содержит группу",
+        "extract": {
+          "type": "column",
+          "from": "Группа мер",
+          "to": "Подгруппа",
+          "from_type": "mixed_str",
+          "to_type": "mixed_str"
+        }
+      },
+      {
+        "source": "DefNodes",
+        "from": "defgroup",
+        "to": "def",
+        "edge": "содержит компонент",
+        "extract": {
+          "type": "column",
+          "from": "Подгруппа",
+          "to": "Идентификатор",
+          "from_type": "mixed_str",
+          "to_type": "clear_str"
+        }
+      },
+      {
+        "source": "DefNodes",
+        "from": "def",
+        "to": "technic",
+        "edge": "содержит технику",
+        "extract": {
+          "type": "column",
+          "from": "Идентификатор",
+          "to": "Парируемые способы реализации угроз",
+          "from_type": "clear_str",
+          "to_type": "mixed_arr"
+        }
+      },
+      {
+        "source": "DefNodes",
+        "from": "def",
+        "to": "threat",
+        "edge": "содержит угрозу",
+        "extract": {
+          "type": "column",
+          "from": "Идентификатор",
+          "to": "Парируемые угрозы",
+          "from_type": "clear_str",
+          "to_type": "mixed_arr"
+        }
+      },
+      {
+        "source": "TechnicNodes",
+        "from": "techgroup",
+        "to": "technic",
+        "edge": "содержит компонент",
+        "extract": {
+          "type": "column",
+          "from": "Группа способов",
+          "to": "Идентификатор",
+          "from_type": "mixed_str",
+          "to_type": "clear_str"
+        }
+      },
+      {
+        "source": "TechnicNodes",
+        "from": "technic",
+        "to": "potential",
+        "edge": "содержит модель нарушителя",
+        "extract": {
+          "type": "column",
+          "from": "Идентификатор",
+          "to": "Уровень возможностей нарушителя",
+          "from_type": "clear_str",
+          "to_type": "mixed_arr"
+        }
+      },
+      {
+        "source": "TechnicNodes",
+        "from": "technic",
+        "to": "threat",
+        "edge": "содержит угрозу",
+        "extract": {
+          "type": "column",
+          "from": "Идентификатор",
+          "to": "Возможные реализуемые угрозы",
+          "from_type": "clear_str",
+          "to_type": "mixed_arr"
+        }
+      },
+      {
+        "source": "TechnicNodes",
+        "from": "technic",
+        "to": "def",
+        "edge": "содержит защиту",
+        "extract": {
+          "type": "column",
+          "from": "Идентификатор",
+          "to": "Возможные меры защиты",
+          "from_type": "clear_str",
+          "to_type": "mixed_arr"
+        }
+      }
+    ]
+  },
+  "files": {
+    "nodes": {
+      "CmpNodes": "data/raw/CmpNodes.csv",
+      "DefNodes": "data/raw/DefNodes.csv",
+      "TechnicNodes": "data/raw/TechnicNodes.csv",
+      "ObjectNodes": "data/raw/ObjectNodes.csv",
+      "ThreatNodes": "data/raw/ThreatNodes.csv",
+      "NegativeNodes": "data/raw/NegativeNodes.csv",
+      "IntviewNodes": "data/raw/potentials_list.json"
+    },
+    "edges": {
+      "cmptypes": "data/raw/cmptypes_list.json",
+      "components": "data/raw/components_list.json",
+      "defenses": "data/raw/defenses_list.json",
+      "defgroups": "data/raw/defgroups_list.json",
+      "negatives": "data/raw/negatives_list.json",
+      "objects": "data/raw/objects_list.json",
+      "potentials": "data/raw/potentials_list.json",
+      "techgroups": "data/raw/techgroups_list.json",
+      "technics": "data/raw/technics_list.json",
+      "threats": "data/raw/threats_list.json"
+    },
+    "processed": {
+      "nodes": "data/processed/nodes.json",
+      "edges": "data/processed/edges.json"
+    },
+    "embeddings": {
+      "vectors": "data/embeddings/vectors.npy",
+      "metadata": "data/embeddings/metadata.json",
+      "nodes": "data/embeddings/nodes.json"
+    },
+    "index": {
+      "nodes": "data/index/nodes.faiss"
+    }
+  }
+}

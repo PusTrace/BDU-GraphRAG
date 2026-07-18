@@ -6,7 +6,7 @@ from pathlib import Path
 import src.models as obj
 
 log = getLogger("storage")
-CONFIG_FILE = "data/config.json"
+CONFIG_FILE = "config.json"
 
 
 def nodes(path: str) -> list[obj.Node]:

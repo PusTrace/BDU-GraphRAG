@@ -3,15 +3,17 @@ from dataclasses import dataclass
 
 @dataclass
 class Node:
-    id: str
+    id: int
+    internal_id: str
     name: str
+    description: str = ""
     type: str = ""
 
 
 @dataclass
 class Edge:
-    source: str
-    target: str
+    source: int
+    target: int
     relation: str
 
 

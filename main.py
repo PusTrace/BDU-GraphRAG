@@ -28,11 +28,8 @@ def main():
 
                 resp = slm(text)
                 message = resp.json()["choices"][0]["message"]["content"]
-                usage = resp.json()["usage"]
-                timings = resp.json()["timings"]
+                print("=" * 60)
                 print(message)
-                print(json.dumps(usage, ensure_ascii=False, indent=4))
-                print(json.dumps(timings, ensure_ascii=False, indent=4))
             elif model == "slmVectorRAG" or model == "2":
                 text = input("> ")
 
@@ -41,25 +38,21 @@ def main():
                 print(f"context: {context}")
                 resp = slm_RAG(text, context=context)
                 message = resp.json()["choices"][0]["message"]["content"]
-                usage = resp.json()["usage"]
-                timings = resp.json()["timings"]
+                print("=" * 60)
                 print(message)
-                print(json.dumps(usage, ensure_ascii=False, indent=4))
-                print(json.dumps(timings, ensure_ascii=False, indent=4))
 
             elif model == "slmGraphRAG" or model == "3":
                 text = input("> ")
                 nodes = graph.search_nodes(text, top_k=5)[:3]
-                nodes = graph.expand_nodes(nodes=nodes, max_depth=1, max_neighbors=5)
-                context = create_graph_context(nodes)
+                expanded_nodes = graph.expand_nodes(
+                    nodes=nodes, max_depth=1, max_neighbors=5
+                )
+                context = create_graph_context(nodes, expanded_nodes)
                 print(f"context: {context}")
                 resp = slm_RAG(text, context=context)
                 message = resp.json()["choices"][0]["message"]["content"]
-                usage = resp.json()["usage"]
-                timings = resp.json()["timings"]
+                print("=" * 60)
                 print(message)
-                print(json.dumps(usage, ensure_ascii=False, indent=4))
-                print(json.dumps(timings, ensure_ascii=False, indent=4))
             else:
                 print("method does not exist")
     except KeyboardInterrupt:
