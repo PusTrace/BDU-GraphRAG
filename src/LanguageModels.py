@@ -51,6 +51,157 @@ def calc_embedding(sentence):
     return response.json()[0]["embedding"][0]
 
 
+def slm_crag(query, nodes):
+    system = """
+Ты оцениваешь качество поиска GraphRAG.
+
+Тебе будут даны:
+- вопрос пользователя;
+- список найденных вершин графа.
+
+Для каждой вершины оцени, насколько она релевантна вопросу.
+
+Оценка:
+1.0 — вершина напрямую отвечает на вопрос.
+0.8 — очень полезна для ответа.
+0.5 — частично связана с вопросом.
+0.2 — слабо связана.
+0.0 — не относится к вопросу.
+
+Используй только информацию из вопроса и текста вершины.
+
+Верни ТОЛЬКО JSON следующего вида:
+
+{
+  "scores": [
+    {
+      "id": "...",
+      "score": 0.95,
+      "reason": "..."
+    }
+  ]
+}
+
+Не добавляй никакого текста вне JSON.
+"""
+
+    prompt = f"""
+Вопрос пользователя:
+
+{query}
+
+Найденные вершины:
+
+{nodes}
+"""
+
+    response = requests.post(
+        "http://localhost:8080/v1/chat/completions",
+        json={
+            "model": "qwen",
+            "messages": [
+                {
+                    "role": "system",
+                    "content": system,
+                },
+                {
+                    "role": "user",
+                    "content": prompt,
+                },
+            ],
+        },
+    )
+
+    response.raise_for_status()
+
+    content = response.json()["choices"][0]["message"]["content"]
+    return json.loads(content)
+
+
+def slm_graph_crag(contexts, query):
+    system = """
+Ты оцениваешь полезность связей в графе знаний для ответа на вопрос пользователя.
+
+Тебе передаются:
+- вопрос пользователя;
+- список вершин графа и их связей.
+
+Твоя задача — оценить каждую связь отдельно.
+
+Оценивай только связь между центральной вершиной и соседней вершиной.
+
+Шкала оценки:
+
+1.0 — связь напрямую необходима для ответа.
+0.8 — связь сильно помогает раскрыть вопрос.
+0.5 — связь частично полезна.
+0.2 — связь имеет слабое отношение.
+0.0 — связь бесполезна для данного вопроса.
+
+При оценке учитывай:
+- смысл вопроса;
+- название центральной вершины;
+- тип отношения;
+- название связанной вершины.
+
+Не используй внешние знания.
+Не меняй структуру данных.
+Не добавляй новые связи.
+
+Верни ТОЛЬКО JSON.
+
+Формат ответа:
+
+{
+  "scores": [
+    {
+      "root_id": "ID центральной вершины",
+      "relations": [
+        {
+          "index": 0,
+          "score": 0.0,
+          "reason": "краткое объяснение"
+        }
+      ]
+    }
+  ]
+}
+"""
+
+    payload = {
+        "query": query,
+        "contexts": contexts,
+    }
+
+    response = requests.post(
+        "http://localhost:8080/v1/chat/completions",
+        json={
+            "model": "qwen",
+            "messages": [
+                {
+                    "role": "system",
+                    "content": system,
+                },
+                {
+                    "role": "user",
+                    "content": json.dumps(
+                        payload,
+                        ensure_ascii=False,
+                        indent=2,
+                    ),
+                },
+            ],
+            "response_format": {"type": "json_object"},
+        },
+    )
+
+    response.raise_for_status()
+
+    content = response.json()["choices"][0]["message"]["content"]
+
+    return json.loads(content)
+
+
 def slm_RAG(text, context):
 
     system = """
@@ -308,5 +459,4 @@ def llm_as_judge(
     response.raise_for_status()
 
     content = response.json()["choices"][0]["message"]["content"]
-    print(content)
     return json.loads(content)

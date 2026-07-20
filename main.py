@@ -3,11 +3,19 @@ import json
 
 import src.storage as load
 from src.Graph import Graph
-from src.LanguageModels import create_context, slm, slm_RAG, create_graph_context
+from src.LanguageModels import (
+    create_context,
+    slm,
+    slm_GraphRAG,
+    slm_RAG,
+    create_graph_context,
+)
+from src.Crag import Crag
 
 
 def main():
     config = load.config()
+    crag = Crag()
     files = config["files"]
     graph = Graph(
         files["processed"]["nodes"],
@@ -17,9 +25,10 @@ def main():
     )
     try:
         while True:
-            model = input(
-                "choose model:\n1. slm\n2. slmVectorRAG\n3. slmGraphRAG\n1 or 2 or 3> "
-            )
+            # model = input(
+            #    "choose model:\n1. slm\n2. slmVectorRAG\n3. slmGraphRAG\n1 or 2 or 3> "
+            # )
+            model = "3"
             if model.lower() in ("exit", "quit"):
                 break
 
@@ -43,13 +52,18 @@ def main():
 
             elif model == "slmGraphRAG" or model == "3":
                 text = input("> ")
-                nodes = graph.search_nodes(text, top_k=5)[:3]
-                expanded_nodes = graph.expand_nodes(
-                    nodes=nodes, max_depth=1, max_neighbors=5
+                nodes = graph.search_nodes(text, top_k=5)
+                nodes = crag.validate_nodes(query=text, nodes=nodes, threshold=0.8)
+                print(nodes)
+
+                relations = graph.expand_nodes(nodes=nodes, max_depth=1)
+                relations = crag.validate_relations(
+                    query=text, root_nodes=nodes, relations=relations
                 )
-                context = create_graph_context(nodes, expanded_nodes)
+
+                context = create_graph_context(nodes, relations)
                 print(f"context: {context}")
-                resp = slm_RAG(text, context=context)
+                resp = slm_GraphRAG(text, context=context)
                 message = resp.json()["choices"][0]["message"]["content"]
                 print("=" * 60)
                 print(message)

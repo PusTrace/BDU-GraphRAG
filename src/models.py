@@ -18,6 +18,14 @@ class Edge:
 
 
 @dataclass
-class ScoredNode:
-    score: float
+class RankedNode:
     node: Node
+    score: float
+
+
+@dataclass
+class RankedEdge:
+    source: Node
+    target: Node
+    relation: str
+    score: float
