@@ -205,7 +205,7 @@ def main():
     cached = load_cache(text, "vector")
 
     if cached is None:
-        nodes = graph.search_nodes(text, top_k=5)[:3]
+        nodes = graph.search_nodes(text)
         context = create_context(nodes)
         resp = slm_RAG(text, context).json()
         save_cache(
@@ -232,8 +232,8 @@ def main():
     cached = load_cache(text, "graph")
 
     if cached is None:
-        nodes = graph.search_nodes(text, top_k=5)[:3]
-        expanded_nodes = graph.expand_nodes(nodes=nodes, max_depth=1, max_neighbors=5)
+        nodes = graph.search_nodes(text)
+        expanded_nodes = graph.expand_nodes(text=text, nodes=nodes)
         context = create_graph_context(nodes, expanded_nodes)
 
         resp = slm_GraphRAG(text, context).json()

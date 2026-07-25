@@ -29,7 +29,7 @@ class Graph:
         self.nodes = self._load_nodes(nodes_file)
         self.edges = self._load_edges(edges_file)
 
-        self.nodes_by_id: dict[str, obj.Node] = {node.id: node for node in self.nodes}
+        self.nodes_by_id: dict[int, obj.Node] = {node.id: node for node in self.nodes}
 
         self.adjacency: dict[str, list[tuple[str, str]]] = defaultdict(list)
 
@@ -39,6 +39,7 @@ class Graph:
         self.embeddings_file = Path(embeddings_file)
 
         self.faiss_index: Optional[faiss.Index] = None
+
         self.embeddings: list[dict] = []
 
         self._load_vector_index()
@@ -51,7 +52,7 @@ class Graph:
         self,
         text: str,
         top_k: int = 5,
-        threshold: float | None = None,
+        threshold: float | None = 0.7,
     ) -> list[obj.Node]:
 
         if self.faiss_index is None:
@@ -59,7 +60,7 @@ class Graph:
 
         vector = np.array([calc_embedding(text)], dtype="float32")
 
-        distances, indexes = self.faiss_index.search(vector, top_k)
+        distances, indexes = self.faiss_index.search(vector, self.faiss_index.ntotal)
 
         result = []
 
@@ -67,70 +68,134 @@ class Graph:
             if idx < 0:
                 continue
 
-            item = self.embeddings[idx]
+            if threshold is not None and distance > threshold:
+                continue
 
-            if threshold is not None:
-                if distance > threshold:
-                    continue
+            node = self.faiss_id_to_node[self.embeddings[idx]["id"]]
+            result.append(node)
 
-            node_id = item["id"]
-
-            node = self.nodes_by_id.get(node_id)
-
-            if node:
-                result.append(node)
+            if len(result) == top_k:
+                break
 
         return result
 
     def expand_nodes(
         self,
+        text: str,
         nodes: list[obj.Node],
         max_depth: int = 1,
-        max_neighbors: int | None = None,
-    ) -> dict[str, list[dict]]:
+        top_k: int = 10,
+        threshold: float = 1.15,
+    ) -> dict[int, list[dict]]:
 
-        result = defaultdict(list)
+        print("=" * 80)
+        print("EXPAND NODES")
+        print(f"Query      : {text}")
+        print(f"max_depth  : {max_depth}")
+        print(f"top_k      : {top_k}")
+        print(f"threshold  : {threshold}")
+        print("=" * 80)
 
-        queue = deque([(node.id, 0) for node in nodes])
+        query_embedding = calc_embedding(text)
+        query_embedding = np.asarray(query_embedding, dtype=np.float32)
 
+        print("\nStart nodes:")
+        for node in nodes:
+            print(f"  {node.id} | {node.internal_id} | {node.name}")
+
+        # ---------- собираем кандидатов ----------
+
+        candidates: dict[int, tuple[obj.Node, str, int]] = {}
+
+        queue = deque((node.id, 0) for node in nodes)
         visited = {node.id for node in nodes}
 
         while queue:
             node_id, depth = queue.popleft()
 
+            root = self.nodes_by_id[node_id]
+
             if depth >= max_depth:
+                print("  depth limit reached")
                 continue
 
-            neighbors_count = 0
-
-            for neighbour_id, relation in self.adjacency.get(node_id, []):
-                if max_neighbors is not None:
-                    if neighbors_count >= max_neighbors:
-                        break
-
+            for neighbour_id, relation in self.adjacency[node_id]:
                 neighbour = self.nodes_by_id.get(neighbour_id)
 
                 if neighbour is None:
                     continue
 
-                result[node_id].append(
-                    {
-                        "node": neighbour,
-                        "relation": relation,
-                    }
-                )
-
-                neighbors_count += 1
-
-                if neighbour_id not in visited:
-                    visited.add(neighbour_id)
-
-                    queue.append(
-                        (
-                            neighbour_id,
-                            depth + 1,
-                        )
+                if neighbour.id not in candidates:
+                    candidates[neighbour.id] = (
+                        neighbour,
+                        relation,
+                        node_id,
                     )
+
+                if neighbour.id not in visited:
+                    visited.add(neighbour.id)
+                    queue.append((neighbour.id, depth + 1))
+
+        print("\nCandidates:", len(candidates))
+
+        # ---------- similarity ----------
+
+        scored = []
+
+        print("\nSimilarity:")
+
+        for node_id, (node, relation, root_id) in candidates.items():
+            embedding = self.embedding_by_id[node_id]
+
+            distance = np.linalg.norm(query_embedding - embedding)
+
+            print(f"{distance:.4f} | {node.internal_id} | {node.name}")
+
+            if distance <= threshold:
+                print("   ACCEPT")
+
+                scored.append(
+                    (
+                        distance,
+                        root_id,
+                        relation,
+                        node,
+                    )
+                )
+            else:
+                print("   REJECT")
+
+        scored.sort(key=lambda x: x[0])
+
+        print("\nAccepted after sorting:")
+
+        for distance, root_id, relation, node in scored:
+            root = self.nodes_by_id[root_id]
+
+            print(
+                f"{distance:.4f} | "
+                f"{root.internal_id} -> "
+                f"{relation} -> "
+                f"{node.internal_id}"
+            )
+
+        result = defaultdict(list)
+
+        print("\nFinal result:")
+
+        for distance, root_id, relation, node in scored[:top_k]:
+            root = self.nodes_by_id[root_id]
+
+            print(f"{distance:.4f} | {root.name} -> {relation} -> {node.name}")
+
+            result[root_id].append(
+                {
+                    "node": node,
+                    "relation": relation,
+                }
+            )
+
+        print("=" * 80)
 
         return dict(result)
 
@@ -166,13 +231,23 @@ class Graph:
         if not self.index_file.exists():
             raise FileNotFoundError(self.index_file)
 
-        if not self.embeddings_file.exists():
-            raise FileNotFoundError(self.embeddings_file)
-
-        self.faiss_index = faiss.read_index(str(self.index_file))
-
         with open(self.embeddings_file, encoding="utf-8") as f:
             self.embeddings = json.load(f)
+
+        if not self.embeddings_file.exists():
+            raise FileNotFoundError(self.embeddings_file)
+        self.embedding_by_id = {}
+        self.faiss_id_to_node = {}
+
+        self.embedding_by_id = {
+            item["id"]: np.asarray(item["embedding"], dtype=np.float32)
+            for item in self.embeddings
+        }
+
+        self.faiss_id_to_node = {
+            item["id"]: self.nodes_by_id[item["id"]] for item in self.embeddings
+        }
+        self.faiss_index = faiss.read_index(str(self.index_file))
 
         logger.info("FAISS loaded: %d vectors", self.faiss_index.ntotal)
 

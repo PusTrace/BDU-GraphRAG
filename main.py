@@ -10,12 +10,10 @@ from src.LanguageModels import (
     slm_RAG,
     create_graph_context,
 )
-from src.Crag import Crag
 
 
 def main():
     config = load.config()
-    crag = Crag()
     files = config["files"]
     graph = Graph(
         files["processed"]["nodes"],
@@ -51,22 +49,23 @@ def main():
                 print(message)
 
             elif model == "slmGraphRAG" or model == "3":
-                text = input("> ")
-                nodes = graph.search_nodes(text, top_k=5)
-                nodes = crag.validate_nodes(query=text, nodes=nodes, threshold=0.8)
+                # text = input("> ")
+                text = "расскажи про sql-инъекции"
+                nodes = graph.search_nodes(text, top_k=5, threshold=0.7)
+                print("=" * 60)
                 print(nodes)
 
-                relations = graph.expand_nodes(nodes=nodes, max_depth=1)
-                relations = crag.validate_relations(
-                    query=text, root_nodes=nodes, relations=relations
+                relations = graph.expand_nodes(
+                    text=text, nodes=nodes, max_depth=1, top_k=10, threshold=1.15
                 )
-
                 context = create_graph_context(nodes, relations)
+                print("=" * 60)
                 print(f"context: {context}")
                 resp = slm_GraphRAG(text, context=context)
                 message = resp.json()["choices"][0]["message"]["content"]
                 print("=" * 60)
                 print(message)
+                exit(130)
             else:
                 print("method does not exist")
     except KeyboardInterrupt:

@@ -4,7 +4,7 @@ from src.LanguageModels import slm_crag, slm_graph_crag
 
 class Crag:
     def validate_nodes(
-        self, query: str, nodes: list[obj.Node], threshold: float
+        self, query: str, nodes: list[obj.Node], threshold: float = 0.7
     ) -> list[obj.Node]:
         """
         Удаляет нерелевантные вершины.
@@ -33,53 +33,74 @@ class Crag:
         query: str,
         root_nodes: list[obj.Node],
         relations: dict[int, list[dict]],
-        max_relations: int = 5,
+        threshold: float = 0.7,
+        max_relations: int = 10,
     ) -> dict[int, list[dict]]:
-        """
-        Удаляет бесполезные связи.
-        """
 
         contexts = []
 
         for node_id, relation in relations.items():
-            root = None
-
-            for item in root_nodes:
-                if item.id == node_id:
-                    root = item
-                    break
+            root = next((n for n in root_nodes if n.id == node_id), None)
 
             if root is None:
                 raise ReferenceError(f"Node {node_id} not found")
 
-            context = {
-                "root_id": root.internal_id,
-                "root_name": root.name,
-                "relations": [],
-            }
+            contexts.append(
+                {
+                    "root_id": root.internal_id,
+                    "root_name": root.name,
+                    "relations": [
+                        {
+                            "index": i,
+                            "relation": r["relation"],
+                            "node_id": r["node"].internal_id,
+                            "node_name": r["node"].name,
+                        }
+                        for i, r in enumerate(relation)
+                    ],
+                }
+            )
 
-            for index, item in enumerate(relation):
-                node = item["node"]
-
-                context["relations"].append(
-                    {
-                        "index": index,
-                        "relation": item["relation"],
-                        "node_id": node.internal_id,
-                        "node_name": node.name,
-                    }
-                )
-
-            contexts.append(context)
-
-        print(contexts)
         result = slm_graph_crag(
             contexts=contexts,
             query=query,
         )
-        print("=" * 60)
-        print(result)
-        exit(130)
+
+        filtered: dict[int, list[dict]] = {}
+
+        for root_result in result["scores"]:
+            root_internal_id = root_result["root_id"]
+
+            # ищем id вершины по internal_id
+            root = next(
+                (n for n in root_nodes if n.internal_id == root_internal_id),
+                None,
+            )
+
+            if root is None:
+                continue
+
+            original = relations[root.id]
+
+            keep = []
+
+            for relation_score in root_result["relations"]:
+                if relation_score["score"] < threshold:
+                    continue
+
+                idx = relation_score["index"]
+
+                if idx >= len(original):
+                    continue
+
+                keep.append(original[idx])
+
+            if max_relations is not None:
+                keep = keep[:max_relations]
+
+            filtered[root.id] = keep
+
+        return filtered
 
     def convert_int_ids(self, nodes, arr_ids):
         result = []
@@ -88,4 +109,3 @@ class Crag:
                 if node.internal_id == internal_id:
                     result.append(node)
         return result
-
