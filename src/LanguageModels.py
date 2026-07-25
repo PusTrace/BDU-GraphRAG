@@ -413,69 +413,49 @@ def slm(text):
 
 
 def llm_as_judge(
-    questions: list[str],
-    answers: list[str],
-    contexts: list[str],
+    question: str,
+    answer: str,
+    context: str,
 ):
-    if not (len(questions) == len(answers) == len(contexts)):
-        raise ValueError("questions, answers and contexts must have the same length")
-
-    content = []
-
-    for i, (question, answer, context) in enumerate(
-        zip(questions, answers, contexts),
-        start=1,
-    ):
-        content.append(
-            {
-                "id": i,
-                "question": question,
-                "context": context,
-                "answer": answer,
-            }
-        )
-
     system = """
 Ты являешься независимым экспертом по информационной безопасности.
 
-Твоя задача — оценить качество каждого ответа.
+Твоя задача — объективно оценить ответ модели.
+
+Используй только предоставленные:
+- вопрос;
+- контекст;
+- ответ модели.
 
 Оцени по шкале от 1 до 10:
 
-- correctness
-- completeness
-- faithfulness
-- clarity
+- correctness — фактическая корректность;
+- completeness — полнота ответа;
+- faithfulness — соответствие контексту без выдуманной информации;
+- clarity — понятность и качество изложения.
 
-faithfulness оценивается ТОЛЬКО относительно предоставленного контекста.
+Не исправляй ответ.
+Не переписывай его.
+Не дополняй его.
 
-Не исправляй ответы.
-Не дописывай ответы.
-Не объясняй оценки.
+Комментарий должен быть кратким (не более 30 слов).
 
-total вычисли как среднее арифметическое четырех оценок,
-округленное до одного знака после запятой.
-
-Комментарий должен содержать не более 15 слов.
-
-Верни ТОЛЬКО корректный JSON.
-
-Формат:
+Верни ТОЛЬКО JSON следующего формата:
 
 {
-  "results": [
-    {
-      "id": 1,
-      "correctness": 0,
-      "completeness": 0,
-      "faithfulness": 0,
-      "clarity": 0,
-      "total": 0.0,
-      "comment": ""
-    }
-  ]
+    "correctness": 0,
+    "completeness": 0,
+    "faithfulness": 0,
+    "clarity": 0,
+    "comment": ""
 }
 """
+
+    user = {
+        "question": question,
+        "context": context,
+        "answer": answer,
+    }
 
     response = requests.post(
         "http://localhost:8080/v1/chat/completions",
@@ -483,7 +463,6 @@ total вычисли как среднее арифметическое четы
             "model": "qwen",
             "temperature": 0,
             "top_p": 0.1,
-            "max_tokens": 2048,
             "response_format": {
                 "type": "json_object",
             },
@@ -495,7 +474,7 @@ total вычисли как среднее арифметическое четы
                 {
                     "role": "user",
                     "content": json.dumps(
-                        {"answers": content},
+                        user,
                         ensure_ascii=False,
                         indent=2,
                     ),
@@ -510,18 +489,17 @@ total вычисли как среднее арифметическое четы
 
     response.raise_for_status()
 
-    content = response.json()["choices"][0]["message"]["content"]
-    result = json.loads(content)
+    result = json.loads(response.json()["choices"][0]["message"]["content"])
 
-    for item in result["results"]:
-        item["total"] = round(
-            (
-                item["correctness"]
-                + item["completeness"]
-                + item["faithfulness"]
-                + item["clarity"]
-            )
-            / 4,
-            1,
+    result["total"] = round(
+        (
+            result["correctness"]
+            + result["completeness"]
+            + result["faithfulness"]
+            + result["clarity"]
         )
+        / 4,
+        1,
+    )
+
     return result

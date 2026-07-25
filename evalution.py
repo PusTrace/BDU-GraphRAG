@@ -23,8 +23,6 @@ CACHE_DIR.mkdir(exist_ok=True)
 
 def cache_path(text: str, stage: str) -> Path:
     key = hashlib.sha256(f"{text}:{stage}".encode("utf-8")).hexdigest()
-    print(key)
-
     return CACHE_DIR / f"{key}.json"
 
 
@@ -54,11 +52,11 @@ def save_cache(text: str, stage: str, data):
 class ExperimentResult:
     name: str
 
-    correctness: int
-    completeness: int
-    faithfulness: int
-    clarity: int
-    total: int
+    correctness: float
+    completeness: float
+    faithfulness: float
+    clarity: float
+    total: float
     comment: str
 
     prompt_tokens: int
@@ -173,41 +171,62 @@ def build_result(llm_result, usages, timings):
 def main():
     config = load.config()
     files = config["files"]
+
     graph = Graph(
         files["processed"]["nodes"],
         files["processed"]["edges"],
         files["index"]["nodes"],
         files["embeddings"]["nodes"],
     )
-    contexts = []
-    answers = []
-    questions = []
-    usages = []
-    timings = []
+
     text = "расскажи про sql-инъекции"
 
-    # slm
+    usages = []
+    timings = []
+    results = []
+
+    # ==========================================================
+    # SLM
+    # ==========================================================
+
     cached = load_cache(text, "slm")
+
     if cached is None:
         resp = slm(text).json()
         save_cache(text, "slm", resp)
     else:
         resp = cached
-    message = resp["choices"][0]["message"]["content"]
+
+    answer = resp["choices"][0]["message"]["content"]
+
     usages.append(resp["usage"])
     timings.append(resp["timings"])
-    contexts.append("")
-    answers.append(message)
-    questions.append(text)
 
-    # slm with vector search
+    cached = load_cache(text, "judge_slm")
+    if cached is None:
+        judge = llm_as_judge(
+            question=text,
+            answer=answer,
+            context="",
+        )
+        save_cache(text, "judge_slm", judge)
+    else:
+        judge = cached
+
+    results.append(judge)
+
+    # ==========================================================
+    # Vector RAG
+    # ==========================================================
 
     cached = load_cache(text, "vector")
 
     if cached is None:
         nodes = graph.search_nodes(text)
         context = create_context(nodes)
+
         resp = slm_RAG(text, context).json()
+
         save_cache(
             text,
             "vector",
@@ -220,23 +239,45 @@ def main():
         context = cached["context"]
         resp = cached["response"]
 
-    print(f"context: {context}")
-    message = resp["choices"][0]["message"]["content"]
+    answer = resp["choices"][0]["message"]["content"]
+
     usages.append(resp["usage"])
     timings.append(resp["timings"])
-    contexts.append(context)
-    answers.append(message)
-    questions.append(text)
 
-    # slm with graph search
+    cached = load_cache(text, "judge_vector")
+    if cached is None:
+        judge = llm_as_judge(
+            question=text,
+            answer=answer,
+            context=context,
+        )
+        save_cache(text, "judge_vector", judge)
+    else:
+        judge = cached
+
+    results.append(judge)
+
+    # ==========================================================
+    # Graph RAG
+    # ==========================================================
+
     cached = load_cache(text, "graph")
 
     if cached is None:
         nodes = graph.search_nodes(text)
-        expanded_nodes = graph.expand_nodes(text=text, nodes=nodes)
-        context = create_graph_context(nodes, expanded_nodes)
+
+        expanded = graph.expand_nodes(
+            text=text,
+            nodes=nodes,
+        )
+
+        context = create_graph_context(
+            nodes,
+            expanded,
+        )
 
         resp = slm_GraphRAG(text, context).json()
+
         save_cache(
             text,
             "graph",
@@ -249,21 +290,33 @@ def main():
         context = cached["context"]
         resp = cached["response"]
 
-    print(f"context: {context}")
-    message = resp["choices"][0]["message"]["content"]
+    answer = resp["choices"][0]["message"]["content"]
+
     usages.append(resp["usage"])
     timings.append(resp["timings"])
-    contexts.append(context)
-    answers.append(message)
-    questions.append(text)
 
-    cached = load_cache(text, "judge")
+    cached = load_cache(text, "judge_graph")
     if cached is None:
-        result = llm_as_judge(questions, answers, contexts)
-        save_cache(text, "judge", result)
+        judge = llm_as_judge(
+            question=text,
+            answer=answer,
+            context=context,
+        )
+        save_cache(text, "judge_graph", judge)
     else:
-        result = cached
-    table = build_result(result, usages, timings)
+        judge = cached
+
+    results.append(judge)
+
+    # ==========================================================
+    # Report
+    # ==========================================================
+
+    table = build_result(
+        results,
+        usages,
+        timings,
+    )
 
     print_comments(table)
     print_table(table)

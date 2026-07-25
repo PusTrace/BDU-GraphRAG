@@ -85,7 +85,7 @@ class Graph:
         nodes: list[obj.Node],
         max_depth: int = 1,
         top_k: int = 10,
-        threshold: float = 1.15,
+        threshold: float = 1.0,
     ) -> dict[int, list[dict]]:
 
         print("=" * 80)
