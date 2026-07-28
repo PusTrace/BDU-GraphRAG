@@ -84,17 +84,9 @@ class Graph:
         text: str,
         nodes: list[obj.Node],
         max_depth: int = 1,
-        top_k: int = 10,
-        threshold: float = 1.0,
+        top_k: int = 5,
+        threshold: float = 1.1,
     ) -> dict[int, list[dict]]:
-
-        print("=" * 80)
-        print("EXPAND NODES")
-        print(f"Query      : {text}")
-        print(f"max_depth  : {max_depth}")
-        print(f"top_k      : {top_k}")
-        print(f"threshold  : {threshold}")
-        print("=" * 80)
 
         query_embedding = calc_embedding(text)
         query_embedding = np.asarray(query_embedding, dtype=np.float32)

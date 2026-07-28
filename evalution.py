@@ -69,6 +69,12 @@ class ExperimentResult:
 
 
 def print_table(results: list[ExperimentResult]):
+    for result in results:
+        print("\n")
+        print(result)
+
+
+def plot_table(results: list[ExperimentResult]):
     headers = [
         "Метод",
         "Correct",
@@ -225,6 +231,7 @@ def main():
         nodes = graph.search_nodes(text)
         context = create_context(nodes)
 
+        print(f"\nVector context:\n{context}")
         resp = slm_RAG(text, context).json()
 
         save_cache(
@@ -276,6 +283,7 @@ def main():
             expanded,
         )
 
+        print(f"\nGraph context:\n{context}")
         resp = slm_GraphRAG(text, context).json()
 
         save_cache(
@@ -318,7 +326,7 @@ def main():
         timings,
     )
 
-    print_comments(table)
+    # print_comments(table)
     print_table(table)
 
 

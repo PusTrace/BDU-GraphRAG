@@ -26,7 +26,7 @@ def create_graph_context(nodes: list[obj.Node], expanded: dict[int, list[dict]])
             if item.id == node_id:
                 base_context = f"({item.internal_id}) {item.name}"
                 if item.description != "":
-                    base_context = base_context + f":\n {item.description}"
+                    base_context = base_context + f":\n{item.description}"
         if base_context is None:
             print(f"nodes: {nodes}")
             print(f"node_id: {node_id}, type: {type(node_id)}")
@@ -36,7 +36,9 @@ def create_graph_context(nodes: list[obj.Node], expanded: dict[int, list[dict]])
             node = item["node"]
             relation = item["relation"]
 
-            lines.append(f"- {relation}: ({node.internal_id}) {node.name}")
+            lines.append(
+                f"- {relation}: ({node.internal_id}) {node.name}\n{node.description}"
+            )
 
         contexts.append(f"{base_context}:\n" + "\n".join(lines))
 
@@ -422,25 +424,43 @@ def llm_as_judge(
 
 Твоя задача — объективно оценить ответ модели.
 
-Используй только предоставленные:
+Используй только:
 - вопрос;
-- контекст;
+- предоставленный контекст;
 - ответ модели.
 
-Оцени по шкале от 1 до 10:
+Не используй собственные знания при оценке faithfulness.
 
-- correctness — фактическая корректность;
-- completeness — полнота ответа;
-- faithfulness — соответствие контексту без выдуманной информации;
-- clarity — понятность и качество изложения.
+Оцени следующие характеристики по шкале от 1 до 10.
+
+correctness
+Фактическая корректность ответа относительно общепринятых знаний.
+
+completeness
+Насколько полно ответ раскрывает вопрос пользователя.
+
+faithfulness
+Насколько ответ опирается на предоставленный контекст.
+
+Правила оценки faithfulness:
+
+- 10 — все значимые утверждения подтверждаются контекстом.
+- 7–9 — почти всё подтверждается, есть небольшие выводы.
+- 4–6 — значительная часть ответа не подтверждается контекстом.
+- 1–3 — большая часть информации придумана относительно контекста.
+- Если контекст пустой, faithfulness всегда равен 0, поскольку невозможно проверить соответствие контексту.
+
+clarity
+Насколько ответ понятен, хорошо структурирован и легко читается.
 
 Не исправляй ответ.
 Не переписывай его.
 Не дополняй его.
+Не объясняй свои оценки.
 
-Комментарий должен быть кратким (не более 30 слов).
+Комментарий должен содержать не более 30 слов и кратко объяснять основную причину снижения оценки.
 
-Верни ТОЛЬКО JSON следующего формата:
+Верни ТОЛЬКО корректный JSON следующего формата:
 
 {
     "correctness": 0,
@@ -450,7 +470,6 @@ def llm_as_judge(
     "comment": ""
 }
 """
-
     user = {
         "question": question,
         "context": context,
@@ -492,13 +511,7 @@ def llm_as_judge(
     result = json.loads(response.json()["choices"][0]["message"]["content"])
 
     result["total"] = round(
-        (
-            result["correctness"]
-            + result["completeness"]
-            + result["faithfulness"]
-            + result["clarity"]
-        )
-        / 4,
+        (result["correctness"] + result["completeness"] + result["clarity"]) / 3,
         1,
     )
 
