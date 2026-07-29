@@ -15,8 +15,61 @@ import matplotlib.pyplot as plt
 from pathlib import Path
 import hashlib
 import json
+from collections import defaultdict
 
 
+QUESTIONS = [
+    "Что такое SQL-инъекция?",
+    "Какие меры защиты позволяют предотвратить SQL-инъекции?",
+    "Что такое межсайтовый скриптинг (XSS)?",
+    "Как защититься от XSS-атак?",
+    "Что такое межсайтовая подделка запросов (CSRF)?",
+    "Какие меры предотвращают CSRF-атаки?",
+    "Что такое переполнение буфера?",
+    "Какие угрозы возникают из-за переполнения буфера?",
+    "Что такое удаленное выполнение кода (RCE)?",
+    "Какие меры позволяют предотвратить RCE?",
+    "Что такое повышение привилегий?",
+    "Какие способы предотвращают повышение привилегий?",
+    "Что такое отказ в обслуживании (DoS)?",
+    "Как защититься от DoS-атак?",
+    "Что такое распределенная атака отказа в обслуживании (DDoS)?",
+    "Какие существуют методы защиты от DDoS?",
+    "Что такое фишинг?",
+    "Какие меры помогают защититься от фишинга?",
+    "Что такое вредоносное программное обеспечение?",
+    "Какие существуют способы защиты от вредоносного ПО?",
+    "Что такое контроль доступа?",
+    "Какие модели управления доступом существуют?",
+    "Что такое принцип минимальных привилегий?",
+    "Почему важно использовать принцип минимальных привилегий?",
+    "Что такое многофакторная аутентификация?",
+    "Какие преимущества дает многофакторная аутентификация?",
+    "Что такое журналирование событий безопасности?",
+    "Зачем необходимо журналирование событий безопасности?",
+    "Что такое мониторинг информационной безопасности?",
+    "Какие задачи решает мониторинг безопасности?",
+    "Что такое система обнаружения вторжений (IDS)?",
+    "Чем IDS отличается от IPS?",
+    "Что такое предотвращение вторжений (IPS)?",
+    "Какие задачи выполняет IPS?",
+    "Что такое сегментация сети?",
+    "Зачем необходима сегментация сети?",
+    "Что такое криптографическая защита информации?",
+    "Для чего используется шифрование данных?",
+    "Что такое цифровая подпись?",
+    "Какие свойства обеспечивает электронная подпись?",
+    "Что такое управление уязвимостями?",
+    "Какие этапы включает процесс управления уязвимостями?",
+    "Что такое оценка рисков информационной безопасности?",
+    "Для чего проводится оценка рисков?",
+    "Что такое инцидент информационной безопасности?",
+    "Какие этапы включает обработка инцидента?",
+    "Что такое резервное копирование?",
+    "Почему резервное копирование является мерой защиты информации?",
+    "Что такое политика информационной безопасности?",
+    "Какие основные цели политики информационной безопасности?",
+]
 CACHE_DIR = Path("data/cache")
 CACHE_DIR.mkdir(exist_ok=True)
 
@@ -174,20 +227,7 @@ def build_result(llm_result, usages, timings):
     return result
 
 
-def main():
-    config = load.config()
-    files = config["files"]
-
-    graph = Graph(
-        files["processed"]["nodes"],
-        files["processed"]["edges"],
-        files["index"]["nodes"],
-        files["embeddings"]["nodes"],
-    )
-
-    # text = "расскажи про sql-инъекции"
-    text = "Какие меры защиты позволяют предотвратить угрозы, возникающие из-за SQL-инъекций?"
-
+def evaluate_question(graph: Graph, text: str):
     usages = []
     timings = []
     results = []
@@ -324,9 +364,64 @@ def main():
         timings,
     )
 
+    return table
+
+
+def average_results(results: list[ExperimentResult]) -> ExperimentResult:
+    n = len(results)
+
+    return ExperimentResult(
+        name=results[0].name,
+        correctness=sum(r.correctness for r in results) / n,
+        completeness=sum(r.completeness for r in results) / n,
+        faithfulness=sum(r.faithfulness for r in results) / n,
+        clarity=sum(r.clarity for r in results) / n,
+        total=sum(r.total for r in results) / n,
+        comment="",
+        prompt_tokens=sum(r.prompt_tokens for r in results) // n,
+        completion_tokens=sum(r.completion_tokens for r in results) // n,
+        total_tokens=sum(r.total_tokens for r in results) // n,
+        prompt_ms=sum(r.prompt_ms for r in results) / n,
+        predicted_ms=sum(r.predicted_ms for r in results) / n,
+        total_ms=sum(r.total_ms for r in results) / n,
+    )
+
+
+def main():
+    config = load.config()
+    files = config["files"]
+
+    graph = Graph(
+        files["processed"]["nodes"],
+        files["processed"]["edges"],
+        files["index"]["nodes"],
+        files["embeddings"]["nodes"],
+    )
+
+    # text = "Какие меры защиты позволяют предотвратить угрозы, возникающие из-за SQL-инъекций?"
+
+    metrics = defaultdict(list)
+
+    for i, question in enumerate(QUESTIONS, start=1):
+        print(f"[{i}/{len(QUESTIONS)}] {question}")
+        print(question)
+
+        results = evaluate_question(graph, question)
+
+        for r in results:
+            metrics[r.name].append(r)
+
+    final_results = []
+
+    for method in ["SLM", "VectorRAG", "GraphRAG"]:
+        final_results.append(average_results(metrics[method]))
+
+    print_table(final_results)
+
+    # table = evaluate_question(graph, text)
     # print_comments(table)
-    print_table(table)
-    plot_table(table)
+    # print_table(table)
+    plot_table(final_results)
 
 
 if __name__ == "__main__":

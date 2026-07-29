@@ -1,0 +1,3467 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.1.1",
+        "name": "Эксплуатация известных уязвимостей",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 2,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.1.2",
+        "name": "Эксплуатация уязвимостей \"нулевого дня\"",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 3,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.2.1",
+        "name": "Использование недостатков, связанных с неполнотой проверки вводимых (входных) данных",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 4,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.2.2",
+        "name": "Использование недостатков, связанных с управлением учетными данными",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 5,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.2.3",
+        "name": "Использование недостатков, связанных с отсутствием проверки достоверности отправителя и/или получателя",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 6,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.2.4",
+        "name": "Использование недостатков, связанных с хранением ключевой информации в программном коде (в оперативной памяти)",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-20 15:34:23",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 7,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.2.5",
+        "name": "Использование недостатков, связанных с передачей ключевой информации по системным шинам",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-20 15:34:37",
+        "pot_id": 3
+      }
+    },
+    {
+      "id": 8,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.2.6",
+        "name": "Использование недостатков, связанных с использованием нестойкой криптографии",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-15 15:26:11",
+        "pot_id": 3
+      }
+    },
+    {
+      "id": 9,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.2.7",
+        "name": "Использование недостатков, связанных с некорректной настройкой сетевого доступа",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 10,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.2.8",
+        "name": "Использование недостатков конфигурации, связанных с настройками по умолчанию (включая пароли по умолчанию)",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 11,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.2.9",
+        "name": "Использование недостатков конфигурации, связанных с отсутствием проверки сертификата сети (для беспроводных сетей)",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 12,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.2.10",
+        "name": "Использование недостатков конфигурации сетевого оборудования, связанных с отсутствием или некорректной фильтрацией трафика",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 13,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.2.11",
+        "name": "Использование недостатков, связанных с некорректной настройкой прав доступа",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 15,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.3.1",
+        "name": "Эксплуатация недостатков незащищенных протоколов передачи данных",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-15 15:25:47",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 16,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.3.2",
+        "name": "Эксплуатация недостатков, децентрализованного и неконтролируемого подключения к сети Интернет",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 14:02:18",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 18,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.4.1",
+        "name": "Внедрение вредоносного программного обеспечения через электронную почту",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 19,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.4.2",
+        "name": "Внедрение вредоносного программного обеспечения через съемные носители информации",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 20,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.4.3",
+        "name": "Внедрение вредоносного программного обеспечения через посещение сайтов",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 21,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.4.4",
+        "name": "Внедрение вредоносного программного обеспечения через сетевое взаимодействие",
+        "description": "",
+        "short_name": "",
+        "conditions": "",
+        "actions": "",
+        "effects": "",
+        "indicator": "",
+        "links": "",
+        "note": "",
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-06-09 16:57:12",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 22,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.4.5",
+        "name": "Внедрение вредоносного программного обеспечения через средства удаленного управления/доступа",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 23,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.4.6",
+        "name": "Внедрение вредоносного программного обеспечения через средства установки/обновления программного обеспечения",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 3
+      }
+    },
+    {
+      "id": 24,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.4.7",
+        "name": "Внедрение вредоносного программного обеспечения через формы приема файлов ",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 25,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.4.8",
+        "name": "Внедрение вредоносного программного обеспечения через файлообменные ресурсы (FTP, SMB и т.п.)",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 26,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.4.9",
+        "name": "Внедрение вредоносного программного обеспечения через мессенджеры, системы видеоконференцсвязи",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 27,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.4.10",
+        "name": "Внедрение вредоносного программного обеспечения через скомпрометированные обновления программного обеспечения или операционной системы",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 3
+      }
+    },
+    {
+      "id": 28,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.4.11",
+        "name": "Внедрение вредоносного ПО через компрометацию инфраструктуры подрядчика, среды сборки разработчика (подрядчика) и (или) службы технической поддержки",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-14 16:26:59",
+        "pot_id": 3
+      }
+    },
+    {
+      "id": 29,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.4.12",
+        "name": "Внедрение вредоносного ПО через установку приложений из магазина приложений",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 3
+      }
+    },
+    {
+      "id": 31,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.5.1",
+        "name": "Внедрение закладок в прикладное программное обеспечение",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 32,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.5.2",
+        "name": "Внедрение закладок, являющихся драйверами устройств",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 3
+      }
+    },
+    {
+      "id": 33,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.5.3",
+        "name": "Внедрение закладок, имитирующих интерфейсы служебных программ",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 3
+      }
+    },
+    {
+      "id": 34,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.5.4",
+        "name": "Внедрение аппаратных закладок",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 3
+      }
+    },
+    {
+      "id": 35,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.5.5",
+        "name": "Внедрение закладок в системное программное обеспечение",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 3
+      }
+    },
+    {
+      "id": 36,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.5.6",
+        "name": "Внедрение закладок в системы Out-of-Band управления (Intel ME, iDrac, iLo etc)",
+        "description": "",
+        "short_name": "",
+        "conditions": "",
+        "actions": "",
+        "effects": "",
+        "indicator": "",
+        "links": "",
+        "note": "",
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-27 13:37:08",
+        "pot_id": 3
+      }
+    },
+    {
+      "id": 37,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.5.7",
+        "name": "Внедрение закладок в микропрограммное обеспечение",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 3
+      }
+    },
+    {
+      "id": 38,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.5.8",
+        "name": "Внедрение закладок в код веб-приложения",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-15 09:31:40",
+        "pot_id": 3
+      }
+    },
+    {
+      "id": 40,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.6.1",
+        "name": "Использование недекларированных возможностей аппаратных средств",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-15 09:33:35",
+        "pot_id": 4
+      }
+    },
+    {
+      "id": 41,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.6.2",
+        "name": "Использование недекларированных возможностей операционных систем",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-15 11:04:30",
+        "pot_id": 4
+      }
+    },
+    {
+      "id": 42,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.6.3",
+        "name": "Использование недекларированных возможностей прикладного программного обеспечения",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 4
+      }
+    },
+    {
+      "id": 43,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.7.1",
+        "name": "Прослушивание интерфейсов сети",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-13 17:10:05",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 44,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.7.2",
+        "name": "Подключение устройства перехвата в разрыв канала передачи данных",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 45,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.7.3",
+        "name": "Атаки на уровне каналов и сети, приводящие к изменению маршрутов",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-13 16:58:03",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 46,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.7.4",
+        "name": "Перенаправление трафика",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 3
+      }
+    },
+    {
+      "id": 47,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.7.5",
+        "name": "Прослушивание широковещательного трафика",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 48,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.7.6",
+        "name": "Врезка в линию связи считывающего устройства не вразрыв (физическое подключение к проводам)",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 49,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.7.7",
+        "name": "Зеркалирование трафика",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 51,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.8.1",
+        "name": "Обнаружение открытых портов",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 52,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.8.2",
+        "name": "Обнаружение сетевых служб",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 53,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.8.3",
+        "name": "Обнаружение устройств",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 54,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.8.4",
+        "name": "Идентификация программного обеспечения и его версий с целью поиска уязвимостей",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 55,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.8.5",
+        "name": "Идентификация пользователей",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 56,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.8.6",
+        "name": "Обнаружение доступных общих сетевых каталогов",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 57,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.8.7",
+        "name": "Обнаружение доступных директорий веб-сайтов",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 58,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.8.8",
+        "name": "Обнаружение существующих доменных имен (DNS-имен)",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 60,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.9.1",
+        "name": "Получение данных о пользователях и группах",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 61,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.9.2",
+        "name": "Получение данных об аппаратном обеспечении",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 62,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.9.3",
+        "name": "Получение данных о процессах",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 63,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.9.4",
+        "name": "Получение данных о настройках безопасности",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 64,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.9.5",
+        "name": "Получение данных о настройках сети",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 65,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.9.6",
+        "name": "Поиск файлов и каталогов",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 66,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.9.7",
+        "name": "Получение данных об установленном программном обеспечении",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 67,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.9.8",
+        "name": "Получение данных о пользователях и системах путем рассылки спам-сообщений ",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-15 09:37:28",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 69,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.10.1",
+        "name": "Атака типа \"человек посередине\" через HTTP-запросы",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 14:04:13",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 70,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.10.2",
+        "name": "Атака типа \"человек посередине\" через TLS/SSL-запросы",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 14:04:16",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 71,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.10.3",
+        "name": "Атака типа \"человек посередине\" через DNS-сервер",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 14:04:18",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 72,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.10.4",
+        "name": "Атака типа \"человек посередине\" путем создания поддельной точки доступа",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 14:04:20",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 73,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.10.5",
+        "name": "Атака типа \"человек посередине\" путем навязывания использования поддельного Proxy-сервера",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 14:04:24",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 74,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.10.6",
+        "name": "Атака типа человек посередине путем подмены ответов на широковещательные запросы разрешения сетевых имен (LLMNR, mDNS, NetBIOS)",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 14:04:26",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 75,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.10.7",
+        "name": "Атаки на уровне каналов и сети, приводящие к изменению маршрутов",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 14:04:29",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 77,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.11.1",
+        "name": "Применение скрытых каналов по времени",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2024-09-25 17:14:33",
+        "pot_id": 3
+      }
+    },
+    {
+      "id": 78,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.11.2",
+        "name": "Применение скрытых каналов по памяти",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2024-09-25 18:25:38",
+        "pot_id": 3
+      }
+    },
+    {
+      "id": 79,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.11.3",
+        "name": "Применение скрытых каналов, организованных через подключаемый носитель",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2024-09-25 18:26:51",
+        "pot_id": 3
+      }
+    },
+    {
+      "id": 80,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.11.4",
+        "name": "Туннелирование с использованием стандартных протоколов (ssh, ipsec)",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2024-09-25 18:32:41",
+        "pot_id": 3
+      }
+    },
+    {
+      "id": 81,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.11.5",
+        "name": "Туннелирование путем инкапсуляции в другие протоколы (dns, smb)",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2024-09-25 18:37:48",
+        "pot_id": 3
+      }
+    },
+    {
+      "id": 82,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.11.6",
+        "name": "Реализация своего сетевого стека (аналог TCP/IP)",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2024-09-25 18:43:05",
+        "pot_id": 3
+      }
+    },
+    {
+      "id": 84,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.12.1",
+        "name": "Считывание нажатий клавиш на клавиатуре",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 14:00:06",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 85,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.12.2",
+        "name": "Снятие видео с экрана",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 14:00:09",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 86,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.12.3",
+        "name": "Снятие изображение с монитора",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 14:00:12",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 87,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.12.4",
+        "name": "Снятие изображения с веб-камеры",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 14:00:16",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 88,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.12.5",
+        "name": "Считывание нажатий виртуальной клавиатуры",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2024-09-25 15:00:35",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 89,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.12.6",
+        "name": "Снятие информации выводимой на печать",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 14:00:20",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 90,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.12.7",
+        "name": "Снятие звука с микрофона",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 14:00:22",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 91,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.12.8",
+        "name": "Визуальное считывание информации",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 14:00:25",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 92,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.12.9",
+        "name": "Считывание информации о положении курсора мыши на экране монитора",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2024-09-25 15:01:00",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 94,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.13.1",
+        "name": "Целенаправленная рассылка через рассылку рекламных писем (спам-сообщений)",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 14:00:58",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 95,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.13.2",
+        "name": "Атаки через социальные сети",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 14:01:00",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 96,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.13.3",
+        "name": "Веб-фишинг",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 14:01:02",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 97,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.13.4",
+        "name": "Почтовый фишинг",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 14:01:05",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 98,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.13.5",
+        "name": "Рассылка SMS или сообщений в мессенджерах",
+        "description": "",
+        "short_name": "",
+        "conditions": "",
+        "actions": "",
+        "effects": "",
+        "indicator": "",
+        "links": "",
+        "note": "",
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-26 13:32:48",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 99,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.13.6",
+        "name": "Атака путем звонка по телефону",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 14:01:10",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 100,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.13.7",
+        "name": "Атака с использованием Deepfake",
+        "description": "",
+        "short_name": "",
+        "conditions": "",
+        "actions": "",
+        "effects": "",
+        "indicator": "",
+        "links": "",
+        "note": "",
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2023-09-12 14:45:39",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 101,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.13.8",
+        "name": "Подброс съемных устройств",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 14:01:14",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 103,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.14.1",
+        "name": "Атака типа \"отказ в обслуживании\" в прикладном программном обеспечении (web-приложения, почтовые сервисы и иные)",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-20 15:36:08",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 104,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.14.2",
+        "name": "Атака типа \"отказ в обслуживании\" на канал передачи данных (атаки фрагментированными пакетами, smurf- атаки, SYN-flood)",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-20 15:36:34",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 105,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.14.3",
+        "name": "Распределенная атака типа \"отказ в обслуживании\" на канал передачи данных",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-20 15:36:38",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 106,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.14.4",
+        "name": "Распределенная атака типа \"отказ в обслуживании\" в прикладном программном обеспечении",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-20 15:36:45",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 107,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.14.5",
+        "name": "Остановка сервиса",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-20 15:36:50",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 108,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.14.6",
+        "name": "Перезагрузка или выключение сервера",
+        "description": "",
+        "short_name": "",
+        "conditions": "",
+        "actions": "",
+        "effects": "",
+        "indicator": "",
+        "links": "",
+        "note": "",
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-20 15:36:57",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 109,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.14.7",
+        "name": "Блокировка пользователей",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-20 17:43:25",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 110,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.14.8",
+        "name": "Множественный запуск программного обеспечения",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 111,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.14.9",
+        "name": "Переполнение почтового сервера за счет рассылки спам-сообщений",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-20 15:37:40",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 113,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.15.1",
+        "name": "Шифрование данных с применением вирусов-шифровальщиков",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 114,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.15.2",
+        "name": "Шифрование данных встроенными средствами",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 116,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.16.1",
+        "name": "Выход за пределы виртуальной инфраструктуры",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-15 15:24:20",
+        "pot_id": 3
+      }
+    },
+    {
+      "id": 117,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.16.2",
+        "name": "Нарушение изоляции процессов",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-15 15:24:23",
+        "pot_id": 3
+      }
+    },
+    {
+      "id": 118,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.16.3",
+        "name": "Нарушение сетевой изоляции",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-15 15:24:25",
+        "pot_id": 3
+      }
+    },
+    {
+      "id": 119,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.16.4",
+        "name": "Выход за пределы контейнера",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-15 15:24:27",
+        "pot_id": 3
+      }
+    },
+    {
+      "id": 120,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.16.5",
+        "name": "Выход за пределы замкнутой программной среды",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-15 15:24:30",
+        "pot_id": 3
+      }
+    },
+    {
+      "id": 122,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.17.1",
+        "name": "Перебор паролей к учетной записи ",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-15 15:32:26",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 123,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.17.2",
+        "name": "Перебор пользователей к паролю (Password Spraying)",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-15 15:31:33",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 124,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.17.3",
+        "name": "Перебор утекших пар пользователь/пароль (Credential Stuffing)",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-15 15:36:43",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 125,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.17.4",
+        "name": "Перебор ключей доступа (API ключи, сессионные ключи и т.д.)",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 14:01:58",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 126,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.17.5",
+        "name": "Перебор одноразовых кодов или ключей",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-15 15:39:39",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 127,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.17.6",
+        "name": "Восстановление аутентификационной информации из аппаратных хранилищ",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-15 15:40:21",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 128,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.17.7",
+        "name": "Восстановление аутентификационной информации из программных хранилищ",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-15 15:40:45",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 129,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.17.8",
+        "name": "Восстановление аутентификационной информации из сетевого трафика",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-15 15:41:13",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 130,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.17.9",
+        "name": "Восстановление аутентификационной информации из исходного кода/конфигурационных файлов",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-15 15:41:27",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 131,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.17.10",
+        "name": "Восстановление аутентификационной информации из журналов приложений",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-15 15:41:44",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 132,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.17.11",
+        "name": "Перехват одноразовых паролей",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-15 15:42:03",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 133,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.17.12",
+        "name": "Восстановление пароля из ранее полученной аутентификационной информации ",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-15 15:42:17",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 135,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.18.1",
+        "name": "Доступ без авторизации",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-15 15:17:23",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 136,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.18.2",
+        "name": "Использование ошибок или отсутствия проверки прав доступа",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-15 15:17:25",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 138,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.19.1",
+        "name": "Модификация операционной системы путем загрузки с внешнего носителя",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 14:04:41",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 139,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.19.2",
+        "name": "Модификация операционной системы из гипервизора",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 14:04:44",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 140,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.19.3",
+        "name": "Модификация операционной системы в момент загрузки операционной системы, используя руткиты",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 13:54:35",
+        "pot_id": 3
+      }
+    },
+    {
+      "id": 141,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.19.4",
+        "name": "Изменение (подмена, удаление) системных файлов операционной системы",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 14:04:47",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 142,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.19.5",
+        "name": "Модификация операционной системы при помощи руткитов (пользовательского и уровня ядра)",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 13:54:41",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 144,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.20.1",
+        "name": "Сбор данных перебором веб-страниц скриптом",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 145,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.20.2",
+        "name": "Сбор данных перебором веб-страниц браузером",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 146,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.20.3",
+        "name": "Сбор данных путем эмуляции мобильного приложения",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 147,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.20.4",
+        "name": "Сбор данных используя API интерфейс",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 149,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.21.1",
+        "name": "Повреждение загрузочной области",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 150,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.21.2",
+        "name": "Затирание данных (wiping)",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 151,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.21.3",
+        "name": "Искажение данных",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-06 14:24:22",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 153,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.22.1",
+        "name": "SQL-инъекция",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 13:56:08",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 154,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.22.2",
+        "name": "Инъекция в шаблон на сервере (SSTI)",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 13:56:11",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 155,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.22.3",
+        "name": "Межсайтовый скриптинг (XSS) с запросами через сервер",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 13:56:15",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 156,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.22.4",
+        "name": "Межсайтовый скриптинг (XSS) без участия сервера",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 13:56:18",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 157,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.22.5",
+        "name": "Инъекция системных команд (OS injection)",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 13:56:21",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 158,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.22.6",
+        "name": "Обход механизмов разграничения доступа",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 13:56:24",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 159,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.22.7",
+        "name": "Нелегитимная отправка (подделка) запросов от имени пользователя (CSRF)",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 13:56:27",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 160,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.22.8",
+        "name": "Нелегитимная отправка (подделка) запросов от имени сервера (SSRF)",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 13:56:30",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 161,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.22.9",
+        "name": "Раскрытие чувствительной информации о пользователях",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 13:56:33",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 162,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.22.10",
+        "name": "Раскрытие чувствительной информации о приложении и инфраструктуре",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 13:56:38",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 163,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.22.11",
+        "name": "Ошибки конфигурирования функций безопасности",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 13:56:41",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 164,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.22.12",
+        "name": "Использование недостатков, связанных с небезопасной десериализацией",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 13:56:43",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 165,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.22.13",
+        "name": "Использование уязвимых библиотек и компонентов",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 13:56:46",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 166,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.22.14",
+        "name": "Использование недостатков слабой реализации регистрации событий и мониторинга",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 13:56:48",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 167,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.22.15",
+        "name": "Манипуляция с временными данными (cache)",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 13:56:51",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 168,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.22.16",
+        "name": "Получение чувствительной информации со страниц веб-приложения или из ответов сервера",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 13:56:53",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 169,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.22.17",
+        "name": "Атака на XML процессор (XML External Entity)",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 13:56:55",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 170,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.22.18",
+        "name": "Подключение локальных файлов (LFI-атака)",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 13:56:58",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 171,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.22.19",
+        "name": "Подключение удаленных файлов (RFI-атака)",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 13:57:01",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 172,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.22.20",
+        "name": "Выход за пределы каталога (Path Traversal)",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 13:57:03",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 173,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.22.21",
+        "name": "Заражение кеша",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 13:57:13",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 174,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.22.22",
+        "name": "Подмена действий пользователя (Clickjacking)",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 13:57:15",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 175,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.22.23",
+        "name": "Захват сеанса пользователя (Session Hijacking)",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 13:57:18",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 176,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.22.24",
+        "name": "Расщепление HTTP-ответа/запроса",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 13:57:20",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 177,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.22.25",
+        "name": "Межсайтовая трассировка (XST-атака)",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 13:57:22",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 178,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.22.26",
+        "name": "Изменение параметров HTTP (HPP-атака)",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 13:57:24",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 179,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.22.27",
+        "name": "Открытое перенаправление",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 13:57:27",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 180,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.22.28",
+        "name": "Переполнение буфера",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 13:57:29",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 181,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.22.29",
+        "name": "Загрузка произвольных файлов",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 13:57:31",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 182,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.22.30",
+        "name": "Нарушение логики работы приложения",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 13:57:33",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 183,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.22.31",
+        "name": "Использование недостатков механизма завершения сессии",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 13:57:37",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 185,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.23.2",
+        "name": "Модификация прошивки (микропрограммы)",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 13:57:49",
+        "pot_id": 3
+      }
+    },
+    {
+      "id": 186,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.24.1",
+        "name": "Кража носителей информации",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 13:20:11",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 187,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.24.2",
+        "name": "Внесение изменений в конфигурацию на уровне оборудования",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-15 10:41:47",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 188,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.24.3",
+        "name": "Уничтожение оборудования",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-20 15:32:15",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 190,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.23.1",
+        "name": "Подмена прошивки (микропрограммы)",
+        "description": null,
+        "short_name": null,
+        "conditions": null,
+        "actions": null,
+        "effects": null,
+        "indicator": null,
+        "links": null,
+        "note": null,
+        "tec_ins": "2022-04-06 14:24:22",
+        "tec_upd": "2022-04-21 13:57:42",
+        "pot_id": 3
+      }
+    },
+    {
+      "id": 192,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.25.1",
+        "name": "Атаки на механизмы идентификации участников системы распределенного реестра",
+        "description": "",
+        "short_name": "",
+        "conditions": "",
+        "actions": "",
+        "effects": "",
+        "indicator": "",
+        "links": "",
+        "note": "",
+        "tec_ins": "2023-08-30 11:37:56",
+        "tec_upd": "2023-11-24 14:00:28",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 193,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.25.2",
+        "name": "Атаки на протоколы достижения консенсуса",
+        "description": "",
+        "short_name": "",
+        "conditions": "",
+        "actions": "",
+        "effects": "",
+        "indicator": "",
+        "links": "",
+        "note": "",
+        "tec_ins": "2023-08-30 11:38:29",
+        "tec_upd": "2023-09-13 15:54:37",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 194,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.25.3",
+        "name": "Атаки на смарт-контракты",
+        "description": "",
+        "short_name": "",
+        "conditions": "",
+        "actions": "",
+        "effects": "",
+        "indicator": "",
+        "links": "",
+        "note": "",
+        "tec_ins": "2023-08-30 11:38:56",
+        "tec_upd": "2023-09-13 15:54:54",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 195,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.25.4",
+        "name": "Атаки на услуги системы с распределенным реестром",
+        "description": "",
+        "short_name": "",
+        "conditions": "",
+        "actions": "",
+        "effects": "",
+        "indicator": "",
+        "links": "",
+        "note": "",
+        "tec_ins": "2023-08-30 11:39:44",
+        "tec_upd": "2023-09-13 15:55:05",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 196,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.14.10",
+        "name": "Распределенная атака типа \"отказ в обслуживании\" с использованием усиливающих механизмов",
+        "description": "",
+        "short_name": "",
+        "conditions": "",
+        "actions": "",
+        "effects": "",
+        "indicator": "",
+        "links": "",
+        "note": "",
+        "tec_ins": "2024-08-09 10:14:18",
+        "tec_upd": "2024-08-09 10:23:20",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 197,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.14.11",
+        "name": "Атака типа \"отказ в обслуживании\" сервера путем отправки фрагментированных сетевых запросов без предоставления их завершающих фрагментов",
+        "description": "",
+        "short_name": "",
+        "conditions": "",
+        "actions": "",
+        "effects": "",
+        "indicator": "",
+        "links": "",
+        "note": "",
+        "tec_ins": "2024-08-09 10:27:25",
+        "tec_upd": "2024-08-09 10:38:52",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 198,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.26.1",
+        "name": "Воздействие на поставщика услуг системы хранения данных",
+        "description": "",
+        "short_name": "",
+        "conditions": "",
+        "actions": "",
+        "effects": "",
+        "indicator": "",
+        "links": "",
+        "note": "",
+        "tec_ins": "2024-12-12 10:52:56",
+        "tec_upd": "2024-12-12 11:59:27",
+        "pot_id": 3
+      }
+    },
+    {
+      "id": 199,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.26.2",
+        "name": "Анализ временных задержек операций с зашифрованными данными сервера системы хранения данных",
+        "description": "",
+        "short_name": "",
+        "conditions": "",
+        "actions": "",
+        "effects": "",
+        "indicator": "",
+        "links": "",
+        "note": "",
+        "tec_ins": "2024-12-12 12:00:50",
+        "tec_upd": "2024-12-12 12:11:16",
+        "pot_id": 3
+      }
+    },
+    {
+      "id": 200,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.26.3",
+        "name": "Снижение качеств обслуживания в результате атак на системы хранения данных",
+        "description": "",
+        "short_name": "",
+        "conditions": "",
+        "actions": "",
+        "effects": "",
+        "indicator": "",
+        "links": "",
+        "note": "",
+        "tec_ins": "2024-12-12 12:10:44",
+        "tec_upd": "2024-12-12 12:27:40",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 201,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.26.4",
+        "name": "Удаление (изменение, шифрование) данных в системе резервирования",
+        "description": "",
+        "short_name": "",
+        "conditions": "",
+        "actions": "",
+        "effects": "",
+        "indicator": "",
+        "links": "",
+        "note": "",
+        "tec_ins": "2024-12-12 12:29:00",
+        "tec_upd": "2024-12-12 12:48:08",
+        "pot_id": 3
+      }
+    },
+    {
+      "id": 202,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.26.5",
+        "name": "Внедрение вредоносного ПО через компрометацию инфраструктуры системы хранения данных",
+        "description": "",
+        "short_name": "",
+        "conditions": "",
+        "actions": "",
+        "effects": "",
+        "indicator": "",
+        "links": "",
+        "note": "",
+        "tec_ins": "2024-12-12 14:18:14",
+        "tec_upd": "2024-12-12 14:34:13",
+        "pot_id": 2
+      }
+    },
+    {
+      "id": 203,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.26.6",
+        "name": "Использование недостатков, связанных с невозможностью удаления информации с сервера хранения данных",
+        "description": "",
+        "short_name": "",
+        "conditions": "",
+        "actions": "",
+        "effects": "",
+        "indicator": "",
+        "links": "",
+        "note": "",
+        "tec_ins": "2024-12-12 14:35:16",
+        "tec_upd": "2024-12-12 14:40:53",
+        "pot_id": 1
+      }
+    },
+    {
+      "id": 204,
+      "type": "technic",
+      "attributes": {
+        "identifier": "СП.4.13",
+        "name": "Внедрение вредоносного программного обеспечения с помощью файлового архива",
+        "description": "",
+        "short_name": "",
+        "conditions": "",
+        "actions": "",
+        "effects": "",
+        "indicator": "",
+        "links": "",
+        "note": "",
+        "tec_ins": "2025-01-31 14:29:53",
+        "tec_upd": "2025-01-31 14:32:28",
+        "pot_id": 1
+      }
+    }
+  ],
+  "meta": {
+    "offset": 0,
+    "limit": 1000,
+    "count": 182
+  }
+}

@@ -1,0 +1,1069 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "type": "object",
+      "attributes": {
+        "identifier": "О.1",
+        "name": "Автоматизированное рабочее место",
+        "description": "Комплекс вычислительной техники и программного обеспечения, предназначенный для автоматизации определенного вида деятельности (например, персональные компьютеры, ноутбуки)"
+      },
+      "relationships": {
+        "components": {
+          "data": [
+            {
+              "id": 2,
+              "type": "cmp"
+            },
+            {
+              "id": 3,
+              "type": "cmp"
+            },
+            {
+              "id": 6,
+              "type": "cmp"
+            },
+            {
+              "id": 8,
+              "type": "cmp"
+            },
+            {
+              "id": 9,
+              "type": "cmp"
+            },
+            {
+              "id": 11,
+              "type": "cmp"
+            },
+            {
+              "id": 15,
+              "type": "cmp"
+            },
+            {
+              "id": 41,
+              "type": "cmp"
+            },
+            {
+              "id": 45,
+              "type": "cmp"
+            },
+            {
+              "id": 64,
+              "type": "cmp"
+            },
+            {
+              "id": 65,
+              "type": "cmp"
+            },
+            {
+              "id": 66,
+              "type": "cmp"
+            },
+            {
+              "id": 71,
+              "type": "cmp"
+            },
+            {
+              "id": 72,
+              "type": "cmp"
+            },
+            {
+              "id": 73,
+              "type": "cmp"
+            },
+            {
+              "id": 74,
+              "type": "cmp"
+            },
+            {
+              "id": 75,
+              "type": "cmp"
+            },
+            {
+              "id": 76,
+              "type": "cmp"
+            },
+            {
+              "id": 98,
+              "type": "cmp"
+            },
+            {
+              "id": 99,
+              "type": "cmp"
+            },
+            {
+              "id": 100,
+              "type": "cmp"
+            },
+            {
+              "id": 105,
+              "type": "cmp"
+            },
+            {
+              "id": 107,
+              "type": "cmp"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 3,
+      "type": "object",
+      "attributes": {
+        "identifier": "О.2",
+        "name": "Сервер",
+        "description": "Совокупность средств вычислительной техники и программных средств, предназначенная для управления, хранения, представления информации в локальной вычислительной сети для рабочих мест и других сетевых устройств"
+      },
+      "relationships": {
+        "components": {
+          "data": [
+            {
+              "id": 2,
+              "type": "cmp"
+            },
+            {
+              "id": 3,
+              "type": "cmp"
+            },
+            {
+              "id": 6,
+              "type": "cmp"
+            },
+            {
+              "id": 8,
+              "type": "cmp"
+            },
+            {
+              "id": 9,
+              "type": "cmp"
+            },
+            {
+              "id": 11,
+              "type": "cmp"
+            },
+            {
+              "id": 15,
+              "type": "cmp"
+            },
+            {
+              "id": 98,
+              "type": "cmp"
+            },
+            {
+              "id": 107,
+              "type": "cmp"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 4,
+      "type": "object",
+      "attributes": {
+        "identifier": "О.3",
+        "name": "Периферийное оборудование",
+        "description": "Устройства, подключаемые к автоматизированным рабочим местам, серверам или мобильным устройствам"
+      },
+      "relationships": {
+        "components": {
+          "data": [
+            {
+              "id": 2,
+              "type": "cmp"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 5,
+      "type": "object",
+      "attributes": {
+        "identifier": "О.4",
+        "name": "Устройство хранения данных",
+        "description": "Носитель информации, предназначенный для записи и хранения данных"
+      },
+      "relationships": {
+        "components": {
+          "data": [
+            {
+              "id": 2,
+              "type": "cmp"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 6,
+      "type": "object",
+      "attributes": {
+        "identifier": "О.5",
+        "name": "Устройство интернета-вещей",
+        "description": "Программно-техническое средство, использующее датчики и API-интерфейсы для связи и обмена данными в сети Интернет"
+      },
+      "relationships": {
+        "components": {
+          "data": [
+            {
+              "id": 2,
+              "type": "cmp"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 7,
+      "type": "object",
+      "attributes": {
+        "identifier": "О.6",
+        "name": "Активное сетевое оборудование",
+        "description": "Оборудование, содержащее электронные схемы, получающее питание от электрической сети или других источников питания и выполняющее функции преобразования, усиления и передачи сигналов,  а также обрабатывающее техническую информацию, перенаправляя и распределяя потоки в соответствии с встроенными алгоритмами.\r\nК активному сетевому оборудованию относятся: маршрутизаторы, коммутаторы,  медиаконвертеры, трансиверы, мосты, шлюзы, ретрансляторы, сетевые адаптеры и проч."
+      },
+      "relationships": {
+        "components": {
+          "data": [
+            {
+              "id": 2,
+              "type": "cmp"
+            },
+            {
+              "id": 91,
+              "type": "cmp"
+            },
+            {
+              "id": 92,
+              "type": "cmp"
+            },
+            {
+              "id": 95,
+              "type": "cmp"
+            },
+            {
+              "id": 107,
+              "type": "cmp"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 8,
+      "type": "object",
+      "attributes": {
+        "identifier": "О.7",
+        "name": "Обеспечивающие системы",
+        "description": "Система, которая служит дополнением к рассматриваемой системе на протяжении стадий ее жизненного цикла, но необязательно вносит непосредственный вклад в ее функционирование"
+      },
+      "relationships": {
+        "components": {
+          "data": [
+            {
+              "id": 2,
+              "type": "cmp"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 9,
+      "type": "object",
+      "attributes": {
+        "identifier": "О.8",
+        "name": "Телефония (VoIP, GSM)",
+        "description": "Программно-аппаратные средства для обеспечения коммуникации посредством передачи голосовых и видеосообщений абонентам"
+      },
+      "relationships": {
+        "components": {
+          "data": [
+            {
+              "id": 2,
+              "type": "cmp"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 10,
+      "type": "object",
+      "attributes": {
+        "identifier": "О.9",
+        "name": "Средства защиты информации",
+        "description": "Программное или программно-техническое средство, предназначенное для предотвращения или существенного затруднения несанкционированного доступа к информации"
+      },
+      "relationships": {
+        "components": {
+          "data": [
+            {
+              "id": 2,
+              "type": "cmp"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 11,
+      "type": "object",
+      "attributes": {
+        "identifier": "О.10",
+        "name": "Мобильное устройство",
+        "description": "Мобильный программно-технический комплекс, предназначенный для автоматизации определенного вида деятельности (например, планшетные компьютеры, смартфоны)"
+      },
+      "relationships": {
+        "components": {
+          "data": [
+            {
+              "id": 2,
+              "type": "cmp"
+            },
+            {
+              "id": 7,
+              "type": "cmp"
+            },
+            {
+              "id": 9,
+              "type": "cmp"
+            },
+            {
+              "id": 11,
+              "type": "cmp"
+            },
+            {
+              "id": 15,
+              "type": "cmp"
+            },
+            {
+              "id": 36,
+              "type": "cmp"
+            },
+            {
+              "id": 45,
+              "type": "cmp"
+            },
+            {
+              "id": 100,
+              "type": "cmp"
+            },
+            {
+              "id": 105,
+              "type": "cmp"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 12,
+      "type": "object",
+      "attributes": {
+        "identifier": "О.11",
+        "name": "Информация (данные), содержащаяся в системах и сетях",
+        "description": "Сведения (сообщения, данные) независимо от формы их представления"
+      },
+      "relationships": {
+        "components": {
+          "data": [
+            {
+              "id": 19,
+              "type": "cmp"
+            },
+            {
+              "id": 20,
+              "type": "cmp"
+            },
+            {
+              "id": 35,
+              "type": "cmp"
+            },
+            {
+              "id": 98,
+              "type": "cmp"
+            },
+            {
+              "id": 99,
+              "type": "cmp"
+            },
+            {
+              "id": 100,
+              "type": "cmp"
+            },
+            {
+              "id": 101,
+              "type": "cmp"
+            },
+            {
+              "id": 102,
+              "type": "cmp"
+            },
+            {
+              "id": 105,
+              "type": "cmp"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 13,
+      "type": "object",
+      "attributes": {
+        "identifier": "О.12",
+        "name": "Физические линии связи",
+        "description": "Физическая среда, по которой передаются электрические информационные сигналы, аппаратура передачи данных и промежуточная аппаратура"
+      },
+      "relationships": {
+        "components": {
+          "data": [
+            {
+              "id": 91,
+              "type": "cmp"
+            },
+            {
+              "id": 92,
+              "type": "cmp"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "included": [
+    {
+      "id": "2",
+      "type": "cmp",
+      "attributes": {
+        "name": "Прошивка (встроенная микропрограмма)",
+        "identifier": "К.1.1.1",
+        "parent_id": 1,
+        "cmpt_id": 1
+      },
+      "relationships": {
+        "cmptype": {
+          "data": {
+            "id": 1,
+            "type": "cmptype"
+          }
+        }
+      }
+    },
+    {
+      "id": "3",
+      "type": "cmp",
+      "attributes": {
+        "name": "UEFI/BIOS",
+        "identifier": "К.1.1.2",
+        "parent_id": 1,
+        "cmpt_id": 1
+      },
+      "relationships": {
+        "cmptype": {
+          "data": {
+            "id": 1,
+            "type": "cmptype"
+          }
+        }
+      }
+    },
+    {
+      "id": "6",
+      "type": "cmp",
+      "attributes": {
+        "name": "Операционная система",
+        "identifier": "К.1.2.1",
+        "parent_id": 5,
+        "cmpt_id": 1
+      },
+      "relationships": {
+        "cmptype": {
+          "data": {
+            "id": 1,
+            "type": "cmptype"
+          }
+        }
+      }
+    },
+    {
+      "id": "8",
+      "type": "cmp",
+      "attributes": {
+        "name": "Программная оболочка",
+        "identifier": "К.1.2.3",
+        "parent_id": 5,
+        "cmpt_id": 1
+      },
+      "relationships": {
+        "cmptype": {
+          "data": {
+            "id": 1,
+            "type": "cmptype"
+          }
+        }
+      }
+    },
+    {
+      "id": "9",
+      "type": "cmp",
+      "attributes": {
+        "name": "Драйвер",
+        "identifier": "К.1.2.4",
+        "parent_id": 5,
+        "cmpt_id": 1
+      },
+      "relationships": {
+        "cmptype": {
+          "data": {
+            "id": 1,
+            "type": "cmptype"
+          }
+        }
+      }
+    },
+    {
+      "id": "11",
+      "type": "cmp",
+      "attributes": {
+        "name": "Загрузчик операционной системы",
+        "identifier": "К.1.2.6",
+        "parent_id": 5,
+        "cmpt_id": 1
+      },
+      "relationships": {
+        "cmptype": {
+          "data": {
+            "id": 1,
+            "type": "cmptype"
+          }
+        }
+      }
+    },
+    {
+      "id": "15",
+      "type": "cmp",
+      "attributes": {
+        "name": "Системные и сетевые службы",
+        "identifier": "К.1.3.1",
+        "parent_id": 14,
+        "cmpt_id": 1
+      },
+      "relationships": {
+        "cmptype": {
+          "data": {
+            "id": 1,
+            "type": "cmptype"
+          }
+        }
+      }
+    },
+    {
+      "id": "41",
+      "type": "cmp",
+      "attributes": {
+        "name": "Пакет офисного ПО (для работы с текстами, таблицами, презентациями и т.п.)",
+        "identifier": "К.1.5.11",
+        "parent_id": 30,
+        "cmpt_id": 1
+      },
+      "relationships": {
+        "cmptype": {
+          "data": {
+            "id": 1,
+            "type": "cmptype"
+          }
+        }
+      }
+    },
+    {
+      "id": "45",
+      "type": "cmp",
+      "attributes": {
+        "name": "Веб-браузер",
+        "identifier": "К.1.5.15",
+        "parent_id": 30,
+        "cmpt_id": 1
+      },
+      "relationships": {
+        "cmptype": {
+          "data": {
+            "id": 1,
+            "type": "cmptype"
+          }
+        }
+      }
+    },
+    {
+      "id": "64",
+      "type": "cmp",
+      "attributes": {
+        "name": "Монитор",
+        "identifier": "К.2.1.2",
+        "parent_id": 62,
+        "cmpt_id": 2
+      },
+      "relationships": {
+        "cmptype": {
+          "data": {
+            "id": 2,
+            "type": "cmptype"
+          }
+        }
+      }
+    },
+    {
+      "id": "65",
+      "type": "cmp",
+      "attributes": {
+        "name": "Мышь",
+        "identifier": "К.2.1.3",
+        "parent_id": 62,
+        "cmpt_id": 2
+      },
+      "relationships": {
+        "cmptype": {
+          "data": {
+            "id": 2,
+            "type": "cmptype"
+          }
+        }
+      }
+    },
+    {
+      "id": "66",
+      "type": "cmp",
+      "attributes": {
+        "name": "Клавиатура",
+        "identifier": "К.2.1.4",
+        "parent_id": 62,
+        "cmpt_id": 2
+      },
+      "relationships": {
+        "cmptype": {
+          "data": {
+            "id": 2,
+            "type": "cmptype"
+          }
+        }
+      }
+    },
+    {
+      "id": "71",
+      "type": "cmp",
+      "attributes": {
+        "name": "Интерфейс подключения клавиатуры",
+        "identifier": "К.2.2.1",
+        "parent_id": 70,
+        "cmpt_id": 2
+      },
+      "relationships": {
+        "cmptype": {
+          "data": {
+            "id": 2,
+            "type": "cmptype"
+          }
+        }
+      }
+    },
+    {
+      "id": "72",
+      "type": "cmp",
+      "attributes": {
+        "name": "Интерфейс подключения мыши",
+        "identifier": "К.2.2.2",
+        "parent_id": 70,
+        "cmpt_id": 2
+      },
+      "relationships": {
+        "cmptype": {
+          "data": {
+            "id": 2,
+            "type": "cmptype"
+          }
+        }
+      }
+    },
+    {
+      "id": "73",
+      "type": "cmp",
+      "attributes": {
+        "name": "Интерфейс подключения монитора",
+        "identifier": "К.2.2.3",
+        "parent_id": 70,
+        "cmpt_id": 2
+      },
+      "relationships": {
+        "cmptype": {
+          "data": {
+            "id": 2,
+            "type": "cmptype"
+          }
+        }
+      }
+    },
+    {
+      "id": "74",
+      "type": "cmp",
+      "attributes": {
+        "name": "Интерфейс подключения проектора",
+        "identifier": "К.2.2.4",
+        "parent_id": 70,
+        "cmpt_id": 2
+      },
+      "relationships": {
+        "cmptype": {
+          "data": {
+            "id": 2,
+            "type": "cmptype"
+          }
+        }
+      }
+    },
+    {
+      "id": "75",
+      "type": "cmp",
+      "attributes": {
+        "name": "Интерфейс подключения аудиоустройства",
+        "identifier": "К.2.2.5",
+        "parent_id": 70,
+        "cmpt_id": 2
+      },
+      "relationships": {
+        "cmptype": {
+          "data": {
+            "id": 2,
+            "type": "cmptype"
+          }
+        }
+      }
+    },
+    {
+      "id": "76",
+      "type": "cmp",
+      "attributes": {
+        "name": "Интерфейс подключения принтера/сканнера/МФУ",
+        "identifier": "К.2.2.6",
+        "parent_id": 70,
+        "cmpt_id": 2
+      },
+      "relationships": {
+        "cmptype": {
+          "data": {
+            "id": 2,
+            "type": "cmptype"
+          }
+        }
+      }
+    },
+    {
+      "id": "98",
+      "type": "cmp",
+      "attributes": {
+        "name": "Администратор",
+        "identifier": "К.4.1.1",
+        "parent_id": 97,
+        "cmpt_id": 4
+      },
+      "relationships": {
+        "cmptype": {
+          "data": {
+            "id": 4,
+            "type": "cmptype"
+          }
+        }
+      }
+    },
+    {
+      "id": "99",
+      "type": "cmp",
+      "attributes": {
+        "name": "Разработчик",
+        "identifier": "К.4.1.2",
+        "parent_id": 97,
+        "cmpt_id": 4
+      },
+      "relationships": {
+        "cmptype": {
+          "data": {
+            "id": 4,
+            "type": "cmptype"
+          }
+        }
+      }
+    },
+    {
+      "id": "100",
+      "type": "cmp",
+      "attributes": {
+        "name": "Тестировщик",
+        "identifier": "К.4.1.3",
+        "parent_id": 97,
+        "cmpt_id": 4
+      },
+      "relationships": {
+        "cmptype": {
+          "data": {
+            "id": 4,
+            "type": "cmptype"
+          }
+        }
+      }
+    },
+    {
+      "id": "105",
+      "type": "cmp",
+      "attributes": {
+        "name": "Непривилегированный сотрудник",
+        "identifier": "К.4.2.1",
+        "parent_id": 104,
+        "cmpt_id": 4
+      },
+      "relationships": {
+        "cmptype": {
+          "data": {
+            "id": 4,
+            "type": "cmptype"
+          }
+        }
+      }
+    },
+    {
+      "id": "107",
+      "type": "cmp",
+      "attributes": {
+        "name": "Сетевой интерфейс",
+        "identifier": "К.2.2.8",
+        "parent_id": 70,
+        "cmpt_id": 2
+      },
+      "relationships": {
+        "cmptype": {
+          "data": {
+            "id": 2,
+            "type": "cmptype"
+          }
+        }
+      }
+    },
+    {
+      "id": "91",
+      "type": "cmp",
+      "attributes": {
+        "name": "Проводной канал передачи данных",
+        "identifier": "К.3.1.1",
+        "parent_id": 90,
+        "cmpt_id": 3
+      },
+      "relationships": {
+        "cmptype": {
+          "data": {
+            "id": 3,
+            "type": "cmptype"
+          }
+        }
+      }
+    },
+    {
+      "id": "92",
+      "type": "cmp",
+      "attributes": {
+        "name": "Беспроводной канал передачи данных",
+        "identifier": "К.3.1.2",
+        "parent_id": 90,
+        "cmpt_id": 3
+      },
+      "relationships": {
+        "cmptype": {
+          "data": {
+            "id": 3,
+            "type": "cmptype"
+          }
+        }
+      }
+    },
+    {
+      "id": "95",
+      "type": "cmp",
+      "attributes": {
+        "name": "Протоколы обмена данными",
+        "identifier": "К.3.2.2",
+        "parent_id": 93,
+        "cmpt_id": 3
+      },
+      "relationships": {
+        "cmptype": {
+          "data": {
+            "id": 3,
+            "type": "cmptype"
+          }
+        }
+      }
+    },
+    {
+      "id": "7",
+      "type": "cmp",
+      "attributes": {
+        "name": "Мобильная операционная система",
+        "identifier": "К.1.2.2",
+        "parent_id": 5,
+        "cmpt_id": 1
+      },
+      "relationships": {
+        "cmptype": {
+          "data": {
+            "id": 1,
+            "type": "cmptype"
+          }
+        }
+      }
+    },
+    {
+      "id": "36",
+      "type": "cmp",
+      "attributes": {
+        "name": "Мобильное приложение",
+        "identifier": "К.1.5.6",
+        "parent_id": 30,
+        "cmpt_id": 1
+      },
+      "relationships": {
+        "cmptype": {
+          "data": {
+            "id": 1,
+            "type": "cmptype"
+          }
+        }
+      }
+    },
+    {
+      "id": "19",
+      "type": "cmp",
+      "attributes": {
+        "name": "Файловый сервер",
+        "identifier": "К.1.3.5",
+        "parent_id": 14,
+        "cmpt_id": 1
+      },
+      "relationships": {
+        "cmptype": {
+          "data": {
+            "id": 1,
+            "type": "cmptype"
+          }
+        }
+      }
+    },
+    {
+      "id": "20",
+      "type": "cmp",
+      "attributes": {
+        "name": "Сервер электронной почты",
+        "identifier": "К.1.3.6",
+        "parent_id": 14,
+        "cmpt_id": 1
+      },
+      "relationships": {
+        "cmptype": {
+          "data": {
+            "id": 1,
+            "type": "cmptype"
+          }
+        }
+      }
+    },
+    {
+      "id": "35",
+      "type": "cmp",
+      "attributes": {
+        "name": "Система управления базами данных (СУБД)",
+        "identifier": "К.1.5.5",
+        "parent_id": 30,
+        "cmpt_id": 1
+      },
+      "relationships": {
+        "cmptype": {
+          "data": {
+            "id": 1,
+            "type": "cmptype"
+          }
+        }
+      }
+    },
+    {
+      "id": "101",
+      "type": "cmp",
+      "attributes": {
+        "name": "Модератор",
+        "identifier": "К.4.1.4",
+        "parent_id": 97,
+        "cmpt_id": 4
+      },
+      "relationships": {
+        "cmptype": {
+          "data": {
+            "id": 4,
+            "type": "cmptype"
+          }
+        }
+      }
+    },
+    {
+      "id": "102",
+      "type": "cmp",
+      "attributes": {
+        "name": "Сотрудник технической поддержки",
+        "identifier": "К.4.1.5",
+        "parent_id": 97,
+        "cmpt_id": 4
+      },
+      "relationships": {
+        "cmptype": {
+          "data": {
+            "id": 4,
+            "type": "cmptype"
+          }
+        }
+      }
+    },
+    {
+      "id": "1",
+      "type": "cmptype",
+      "attributes": {
+        "name": "Программное обеспечение",
+        "identifier": "К.1"
+      }
+    },
+    {
+      "id": "2",
+      "type": "cmptype",
+      "attributes": {
+        "name": "Программно-аппаратные средства",
+        "identifier": "К.2"
+      }
+    },
+    {
+      "id": "4",
+      "type": "cmptype",
+      "attributes": {
+        "name": "Пользователи",
+        "identifier": "К.4"
+      }
+    },
+    {
+      "id": "3",
+      "type": "cmptype",
+      "attributes": {
+        "name": "Сетевые компоненты",
+        "identifier": "К.3"
+      }
+    }
+  ],
+  "meta": {
+    "offset": 0,
+    "limit": 1000,
+    "count": 12
+  }
+}

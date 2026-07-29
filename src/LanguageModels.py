@@ -184,54 +184,35 @@ def llm_as_judge(
     context: str,
 ):
     system = """
-Ты являешься независимым экспертом по информационной безопасности.
+Ты — независимый эксперт по информационной безопасности.
 
-Твоя задача — объективно оценить ответ модели.
+Оцени ответ по критериям:
 
-Используй только:
-- вопрос;
-- предоставленный контекст;
-- ответ модели.
+correctness — фактическая корректность.
+completeness — полнота ответа.
+faithfulness — соответствие предоставленному контексту.
+clarity — понятность и структура.
 
-Не используй собственные знания при оценке faithfulness.
-
-Оцени следующие характеристики по шкале от 1 до 10.
-
-correctness
-Фактическая корректность ответа относительно общепринятых знаний.
-
-completeness
-Насколько полно ответ раскрывает вопрос пользователя.
-
-faithfulness
-Насколько ответ опирается на предоставленный контекст.
-
-Правила оценки faithfulness:
-
-- 10 — все значимые утверждения подтверждаются контекстом.
-- 7–9 — почти всё подтверждается, есть небольшие выводы.
-- 4–6 — значительная часть ответа не подтверждается контекстом.
-- 1–3 — большая часть информации придумана относительно контекста.
-- Если контекст пустой, faithfulness всегда равен 0, поскольку невозможно проверить соответствие контексту.
-
-clarity
-Насколько ответ понятен, хорошо структурирован и легко читается.
+Faithfulness:
+10 — все утверждения подтверждены контекстом.
+7–9 — почти все.
+4–6 — часть не подтверждается.
+1–3 — большая часть отсутствует в контексте.
+Если контекст пустой — faithfulness = 0.
 
 Не исправляй ответ.
-Не переписывай его.
-Не дополняй его.
+коментарий не более 25 слов
 
-Комментарий должен содержать не более 30 слов и кратко объяснять основную причину снижения оценки.
-
-Верни ТОЛЬКО корректный JSON следующего формата:
+Верни только JSON:
 
 {
-    "correctness": 0,
-    "completeness": 0,
-    "faithfulness": 0,
-    "clarity": 0,
-    "comment": ""
+  "correctness": 0,
+  "completeness": 0,
+  "faithfulness": 0,
+  "clarity": 0,
+  "comment": ""
 }
+
 """
     user = {
         "question": question,
@@ -246,6 +227,7 @@ clarity
             "model": "qwen",
             "temperature": 0,
             "top_p": 0.1,
+            "max_tokens": 128,
             "response_format": {
                 "type": "json_object",
             },
@@ -259,23 +241,27 @@ clarity
                     "content": json.dumps(
                         user,
                         ensure_ascii=False,
-                        indent=2,
                     ),
                 },
             ],
         },
     )
 
-    print(response.status_code)
-    print(response.text)
+    try:
+        response.raise_for_status()
+        result = json.loads(response.json()["choices"][0]["message"]["content"])
 
-    response.raise_for_status()
+        result["total"] = round(
+            (result["correctness"] + result["completeness"] + result["clarity"]) / 3,
+            1,
+        )
 
-    result = json.loads(response.json()["choices"][0]["message"]["content"])
-
-    result["total"] = round(
-        (result["correctness"] + result["completeness"] + result["clarity"]) / 3,
-        1,
-    )
-
-    return result
+        return result
+    except Exception as e:
+        print(f"exception: {e}")
+        print("data:")
+        print(user)
+        print("response:")
+        print(response.status_code)
+        print(response.text)
+        exit(130)

@@ -1,20 +1,131 @@
-## build:
+# BDU-GraphRAG
 
-- DataScrapper.py - get files from api
-- Parser.py - parse files from raw to nodes.json and edges.json
-- NodesVectors.py - for calc embedings for vector search
-- FAISS_index.py = for indexing nodes
+Экспериментальная реализация Retrieval-Augmented Generation (RAG) и GraphRAG для работы с Банком данных угроз безопасности информации (БДУ) ФСТЭК России.
 
-## start:
+Проект позволяет сравнить три подхода к генерации ответов:
 
-- CUDA_VISIBLE_DEVICES="" ./build/bin/llama-server -m models/Qwen3-Embedding-0.6B-Q8_0.gguf --embeddings --port 8081
-- ./build/bin/llama-server -m models/Qwen3-VL-4B-Instruct-Q5_K_M.gguf --port 8080 -ngl 99
-- api.py - user view (available only console view)
+- **SLM** — ответ только языковой модели.
+- **VectorRAG** — дополнение запроса релевантными вершинами, найденными через эмбеддинги.
+- **GraphRAG** — дополнение запроса графовым окружением найденных объектов.
 
-## other:
+Также реализована автоматическая оценка качества ответов с помощью LLM-as-a-Judge.
 
-- GraphSearch.py - module for search in graph and return node + neighbor nodes
-- config.json - for configuration scripts
-- llm.py - for chat with llm
+---
 
-~ mean file not did but planned
+# Возможности
+
+- Импорт данных БДУ ФСТЭК
+- Построение графа знаний
+- Векторный поиск (FAISS)
+- GraphRAG
+- VectorRAG
+- Локальная языковая модель через llama.cpp
+- Локальная модель эмбеддингов
+- Автоматическая оценка ответов
+- Сравнение различных способов поиска контекста
+
+---
+
+# Используемые технологии
+
+- Python
+- FAISS
+- llama.cpp
+- Qwen3
+- requests
+
+---
+
+# Запуск
+
+## 1. Запуск модели
+
+```bash
+llama-server \
+    -m ~/models/Qwen3-4B-Q5_K_M.gguf \
+    --port 8080 \
+    -ngl 99
+```
+
+---
+
+## 2. Запуск модели эмбеддингов
+
+```bash
+llama-server \
+    -m ~/models/Qwen3-Embedding-0.6B-Q8_0.gguf \
+    --embeddings \
+    --port 8081
+```
+
+---
+
+## 3. Запуск оценки
+
+```bash
+python evaluation.py
+```
+
+---
+
+# Используемые модели
+
+### Генерация
+
+- Qwen3-4B
+
+### Эмбеддинги
+
+- Qwen3-Embedding-0.6B
+
+---
+
+# Методы поиска
+
+## SLM
+
+Ответ строится исключительно на знаниях языковой модели.
+
+---
+
+## VectorRAG
+
+1. Строится embedding запроса.
+2. Выполняется поиск ближайших вершин через FAISS.
+3. Их описание передается модели.
+
+---
+
+## GraphRAG
+
+1. Выполняется поиск наиболее релевантных вершин.
+2. Для каждой вершины извлекаются соседние узлы графа.
+3. Формируется расширенный контекст.
+4. Контекст передается языковой модели.
+
+---
+
+# Метрики
+
+Ответы оцениваются автоматически по четырем критериям.
+
+| Метрика      | Описание                                |
+| ------------ | --------------------------------------- |
+| Correctness  | Фактическая корректность                |
+| Completeness | Полнота ответа                          |
+| Faithfulness | Соответствие предоставленному контексту |
+| Clarity      | Понятность и структура ответа           |
+
+---
+
+# Источник данных
+
+Банк данных угроз безопасности информации ФСТЭК России.
+
+---
+
+# Назначение проекта
+
+Проект создан в исследовательских целях для сравнения эффективности классического RAG и GraphRAG при работе с данными БДУ ФСТЭК.
+
+Основная цель — исследовать влияние структуры графа знаний на качество ответов языковой модели.

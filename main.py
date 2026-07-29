@@ -23,10 +23,9 @@ def main():
     )
     try:
         while True:
-            # model = input(
-            #    "choose model:\n1. slm\n2. slmVectorRAG\n3. slmGraphRAG\n1 or 2 or 3> "
-            # )
-            model = "3"
+            model = input(
+                "choose model:\n1. slm\n2. slmVectorRAG\n3. slmGraphRAG\n1 or 2 or 3> "
+            )
             if model.lower() in ("exit", "quit"):
                 break
 
@@ -40,7 +39,7 @@ def main():
             elif model == "slmVectorRAG" or model == "2":
                 text = input("> ")
 
-                nodes = graph.search_nodes(text, top_k=5)[:3]
+                nodes = graph.search_nodes(text, top_k=5)
                 context = create_context(nodes)
                 print(f"context: {context}")
                 resp = slm_RAG(text, context=context)
@@ -49,14 +48,13 @@ def main():
                 print(message)
 
             elif model == "slmGraphRAG" or model == "3":
-                # text = input("> ")
-                text = "расскажи про sql-инъекции"
-                nodes = graph.search_nodes(text, top_k=5, threshold=0.7)
+                text = input("> ")
+                nodes = graph.search_nodes(text, 2)
                 print("=" * 60)
                 print(nodes)
 
                 relations = graph.expand_nodes(
-                    text=text, nodes=nodes, max_depth=1, top_k=10, threshold=1.15
+                    text=text, nodes=nodes, max_depth=1, top_k=3
                 )
                 context = create_graph_context(nodes, relations)
                 print("=" * 60)
