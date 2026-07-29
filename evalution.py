@@ -272,12 +272,9 @@ def main():
     cached = load_cache(text, "graph")
 
     if cached is None:
-        nodes = graph.search_nodes(text)
+        nodes = graph.search_nodes(text, top_k=2)
 
-        expanded = graph.expand_nodes(
-            text=text,
-            nodes=nodes,
-        )
+        expanded = graph.expand_nodes(text=text, nodes=nodes, top_k=3)
 
         context = create_graph_context(
             nodes,
@@ -329,6 +326,7 @@ def main():
 
     # print_comments(table)
     print_table(table)
+    plot_table(table)
 
 
 if __name__ == "__main__":

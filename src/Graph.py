@@ -51,8 +51,8 @@ class Graph:
     def search_nodes(
         self,
         text: str,
-        top_k: int = 5,
-        threshold: float | None = 0.7,
+        top_k: int = 3,
+        threshold: float | None = None,
     ) -> list[obj.Node]:
 
         if self.faiss_index is None:
@@ -85,7 +85,7 @@ class Graph:
         nodes: list[obj.Node],
         max_depth: int = 1,
         top_k: int = 5,
-        threshold: float = 1.1,
+        threshold: float | None = None,
     ) -> dict[int, list[dict]]:
 
         query_embedding = calc_embedding(text)
@@ -143,9 +143,21 @@ class Graph:
 
             print(f"{distance:.4f} | {node.internal_id} | {node.name}")
 
-            if distance <= threshold:
-                print("   ACCEPT")
+            if threshold is not None:
+                if distance <= threshold:
+                    print("   ACCEPT")
 
+                    scored.append(
+                        (
+                            distance,
+                            root_id,
+                            relation,
+                            node,
+                        )
+                    )
+                else:
+                    print("   REJECT")
+            else:
                 scored.append(
                     (
                         distance,
@@ -154,8 +166,6 @@ class Graph:
                         node,
                     )
                 )
-            else:
-                print("   REJECT")
 
         scored.sort(key=lambda x: x[0])
 
