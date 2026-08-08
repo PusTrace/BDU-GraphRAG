@@ -1,7 +1,15 @@
 # slm, llm and other connections with LanguageModel
+from dotenv import load_dotenv
 import requests
 import src.models as obj
 import json
+from google import genai
+from google.genai import types
+from google.genai.errors import ServerError
+
+import time
+import os
+from pydantic import BaseModel
 
 
 SYSTEM = """
@@ -104,6 +112,11 @@ def slm_RAG(text, context):
         },
     )
 
+    content = response.json()["choices"][0]["message"]["content"]
+
+    if "??????????" in content:
+        raise RuntimeError("LLM produced corrupted output")
+
     return response
 
 
@@ -139,6 +152,10 @@ def slm_GraphRAG(text, context):
             ],
         },
     )
+    content = response.json()["choices"][0]["message"]["content"]
+
+    if "??????????" in content:
+        raise RuntimeError("LLM produced corrupted output")
 
     return response
 
@@ -174,6 +191,11 @@ def slm(text):
             ],
         },
     )
+
+    content = response.json()["choices"][0]["message"]["content"]
+
+    if "??????????" in content:
+        raise RuntimeError("LLM produced corrupted output")
 
     return response
 
@@ -219,7 +241,6 @@ Faithfulness:
         "context": context,
         "answer": answer,
     }
-    # print(json.dumps(user, ensure_ascii=False, indent=2))
 
     response = requests.post(
         "http://localhost:8080/v1/chat/completions",
@@ -250,6 +271,8 @@ Faithfulness:
     try:
         response.raise_for_status()
         result = json.loads(response.json()["choices"][0]["message"]["content"])
+        if result.count("?") > 10:
+            raise RuntimeError("LLM produced corrupted output")
 
         result["total"] = round(
             (result["correctness"] + result["completeness"] + result["clarity"]) / 3,
@@ -260,8 +283,103 @@ Faithfulness:
     except Exception as e:
         print(f"exception: {e}")
         print("data:")
-        print(user)
+        print(json.dumps(user, ensure_ascii=False, indent=2))
         print("response:")
         print(response.status_code)
         print(response.text)
+        exit(130)
+
+
+class JudgeResult(BaseModel):
+    correctness: int
+    completeness: int
+    faithfulness: int
+    clarity: int
+    comment: str
+
+
+def gemini_as_judge(question: str, answer: str, context: str):
+    time.sleep(30)
+    system = """
+Ты — независимый эксперт по информационной безопасности.
+
+Оцени ответ по критериям:
+
+correctness — фактическая корректность.
+completeness — полнота ответа.
+faithfulness — соответствие предоставленному контексту.
+clarity — понятность и структура.
+
+Faithfulness:
+10 — все утверждения подтверждены контекстом.
+7–9 — почти все.
+4–6 — часть не подтверждается.
+1–3 — большая часть отсутствует в контексте.
+Если контекст пустой — faithfulness = 0.
+
+Не исправляй ответ.
+коментарий не более 25 слов
+
+Верни только JSON:
+
+{
+  "correctness": 0,
+  "completeness": 0,
+  "faithfulness": 0,
+  "clarity": 0,
+  "comment": ""
+}
+
+"""
+    prompt = f"""
+Вопрос:
+{question}
+
+Контекст:
+{context}
+
+Ответ модели:
+{answer}
+"""
+    load_dotenv()
+
+    client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+    response = None
+
+    for attempt in range(5):
+        try:
+            response = client.models.generate_content(
+                model="gemini-3.5-flash-lite",
+                contents=prompt,
+                config=types.GenerateContentConfig(
+                    system_instruction=system,
+                    temperature=0,
+                    response_mime_type="application/json",
+                    response_schema=JudgeResult,
+                ),
+            )
+            break
+        except ServerError:
+            print(f"timeout: {attempt}")
+            time.sleep(60 * attempt)
+    if response is None:
+        print("5 attempts and response is None")
+        exit(130)
+
+    try:
+        result = response.parsed.model_dump()
+
+        result["total"] = round(
+            (result["correctness"] + result["completeness"] + result["clarity"]) / 3,
+            1,
+        )
+
+        return result
+
+    except Exception as e:
+        print(f"exception: {e}")
+        print("data:")
+        print(json.dumps(prompt, ensure_ascii=False, indent=2))
+        print("response:")
+        print(response)
         exit(130)

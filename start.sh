@@ -37,7 +37,7 @@ start_server \
 start_server \
     8080 \
     '~/apps/llama.cpp/build/bin/llama-server \
-        -m ~/models/Qwen3-VL-4B-Instruct-Q5_K_M.gguf \
+        -m ~/models/Qwen3-4B-Q5_K_M.gguf \
         --port 8080 \
         -ngl 99'
 
