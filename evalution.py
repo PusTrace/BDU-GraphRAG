@@ -589,8 +589,8 @@ def main():
 
     metrics = defaultdict(list)
 
-    for i, question in enumerate(BDU_QUESTIONS, start=1):
-        print(f"[{i}/{len(BDU_QUESTIONS)}] {question}")
+    for i, question in enumerate(QUESTIONS, start=1):
+        print(f"[{i}/{len(QUESTIONS)}] {question}")
         print(question)
 
         results = evaluate_question(graph, question)
